@@ -1,5 +1,5 @@
 package com.example.saessak.dto;
-;
+
 import com.example.saessak.entity.Resume;
 import com.example.saessak.entity.User;
 import com.example.saessak.entity.WorkResume;
@@ -8,15 +8,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import java.util.ArrayList;
 import java.util.List;
+
+;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResumeRequestDto {
+public class ResumeResponseDto {
 
     private int resumeId;
     private String title;
@@ -41,35 +42,34 @@ public class ResumeRequestDto {
     private String workStartTime;
     private String workEndTime;
     private String car;
+
     private String userId;
+
     private List<WorkResume> resumes = new ArrayList<>();
 
-    public Resume toEntity() {
-
-        User user = User.builder().userId(userId).build();
-
-        return Resume.builder()
-                .title(title)
-                .areaFirst(areaFirst)
-                .areaSecond(areaSecond)
-                .areaThird(areaThird)
-                .gender(gender)
-                .birthday(birthday)
-                .phone(phone)
-                .email(email)
-                .address(address)
-                .agriculture(agriculture)
-                .career(career)
-                .account(account)
-                .bank(bank)
-                .crops(crops)
-                .workStartDay(workStartDay)
-                .workEndDay(workEndDay)
-                .workStartTime(workStartTime)
-                .workEndTime(workEndTime)
-                .car(car)
-                .user(user)
-                .resumes(resumes)
-                .build();
+    public ResumeResponseDto(Resume resume) {
+        this.resumeId = resume.getResumeId();
+        this.title = resume.getTitle();
+        this.areaFirst = resume.getAreaFirst();
+        this.areaSecond = resume.getAreaSecond();
+        this.areaThird = resume.getAreaThird();
+        this.gender = resume.getGender();
+        this.birthday = resume.getBirthday();
+        this.phone = resume.getPhone();
+        this.email = resume.getEmail();
+        this.address = resume.getAddress();
+        this.career = resume.getCareer();
+        this.account = resume.getAccount();
+        this.bank = resume.getBank();
+        this.agriculture = resume.getAgriculture();
+        this.crops = resume.getCrops();
+        this.workStartDay = resume.getWorkStartDay();
+        this.workEndDay = resume.getWorkEndDay();
+        this.workStartTime = resume.getWorkStartTime();
+        this.workEndTime = resume.getWorkEndTime();
+        this.car = resume.getCar();
+        this.userId = resume.getUser().getUserId();
     }
+
+
 }

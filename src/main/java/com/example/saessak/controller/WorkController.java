@@ -6,10 +6,7 @@ import com.example.saessak.entity.Work;
 import com.example.saessak.service.WorkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,15 +16,21 @@ public class WorkController {
 
     private final WorkService workService;
 
-    // 일자리 공고 생성
-    @PostMapping("/work")
+    // 일자리 공고 생성(농장주)
+    @PostMapping("/work/farm")
     public ResponseEntity<WorkRequestDto> save(@RequestBody WorkRequestDto workRequestDto){
         workService.save(workRequestDto);
         return ResponseEntity.ok(workRequestDto);
     }
 
-    // 전체 일자리 공고 보기
-    @GetMapping("/work")
+    // 일자리 공고 확인(농장주가 생성)
+    @GetMapping("/work/farm")
+    public ResponseEntity<List<WorkResponseDto>> findByFarm(@RequestParam("farmId") int farmId) {
+        return ResponseEntity.ok(workService.findAllByFarm(farmId));
+    }
+
+    // 전체 일자리 공고 보기(노동자)
+    @GetMapping("/work/worker")
     public ResponseEntity<List<WorkResponseDto>> findAll() {
         return ResponseEntity.ok(workService.findAll());
     }

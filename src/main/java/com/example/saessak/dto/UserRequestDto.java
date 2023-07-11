@@ -16,10 +16,7 @@ public class UserRequestDto {
     private String userId;
     private String name;
     private String profileImage;
-//    private String gender;
     private String phone;
-//    private String birthyear;
-//    private String birthday;
     private String type;
 
     public User toEntity() {
@@ -28,10 +25,7 @@ public class UserRequestDto {
                 .userId(userId)
                 .name(name)
                 .profileImage(profileImage)
-//                .gender(gender)
                 .phone(phone)
-//                .birthyear(birthyear)
-//                .birthday(birthday)
                 .type(type)
                 .build();
     }

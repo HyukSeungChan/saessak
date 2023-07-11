@@ -47,7 +47,7 @@ public class WorkResponseDto {
 
     public WorkResponseDto(Work work){
         this.workId = work.getWorkId();
-//        this.farmId = work.getFarm().getFarmId();
+        this.farmId = work.getFarm().getFarmId();
         this.title = work.getTitle();
         this.content = work.getContent();
         this.recruitmentStart = work.getRecruitmentStart();

@@ -17,6 +17,7 @@ import java.util.List;
 public class Farm {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "farm_id")
     // 농장 ID
     private int farmId;

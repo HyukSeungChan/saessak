@@ -1,6 +1,5 @@
 package com.example.saessak.repository;
 
-import com.example.saessak.entity.UserVideo;
 import com.example.saessak.entity.UserWork;
 import org.springframework.data.jpa.repository.JpaRepository;
 

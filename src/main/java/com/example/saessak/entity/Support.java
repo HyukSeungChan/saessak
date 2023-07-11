@@ -54,6 +54,10 @@ public class Support {
     // 주체기관
     private String crops;
 
+    @Column(name = "type")
+    // 주체기관
+    private String type;
+
     @OneToMany(mappedBy = "support")
     // mapping
     private List<UserSupport> userSupports = new ArrayList<>();
