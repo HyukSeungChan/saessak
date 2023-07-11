@@ -50,9 +50,9 @@ public class Board {
     // 댓글 수
     private int replies;
 
-    @Column(name = "crops")
-    // 재배작물
-    private String crops;
+    @Column(name = "agriculture")
+    // 카테고리(농업구분)
+    private String agriculture;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

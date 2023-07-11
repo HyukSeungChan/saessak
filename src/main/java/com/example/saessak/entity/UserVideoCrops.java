@@ -12,12 +12,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserVideo {
+public class UserVideoCrops {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_video_id")
+    @Column(name = "user_video_crops_id")
     // 유저-영상ID
-    private int userVideoId;
+    private int userVideoCropsId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -25,7 +25,7 @@ public class UserVideo {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "video_id")
+    @JoinColumn(name = "video_crops_id")
     // 영상ID
-    private Video video;
+    private VideoCrops videoCrops;
 }

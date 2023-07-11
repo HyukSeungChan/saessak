@@ -26,7 +26,6 @@ public class FarmRequestDto {
     private String agriculture;
     private String crops;
     private String cropsDetail;
-
     private Long userId;
 
     public Farm toEntity() {

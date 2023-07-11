@@ -1,6 +1,7 @@
 package com.example.saessak.dto;
 
 import com.example.saessak.entity.Farm;
+import com.example.saessak.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +27,7 @@ public class FarmResponseDto {
     private String crops;
     private String cropsDetail;
 
-    private String userId;
+    private User user;
 
     public FarmResponseDto(Farm farm) {
         this.farmId = farm.getFarmId();
@@ -39,6 +40,7 @@ public class FarmResponseDto {
         this.agriculture = farm.getAgriculture();
         this.crops = farm.getCrops();
         this.cropsDetail = farm.getCrops_detail();
+        this.user = farm.getUser();
     }
 
 }

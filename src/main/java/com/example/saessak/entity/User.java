@@ -43,7 +43,11 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     // mapping
-    private List<UserVideo> userVideos = new ArrayList<>();
+    private List<UserVideoCrops> userVideoCrops = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    // mapping
+    private List<UserVideoLife> userVideoLifes = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     // mapping

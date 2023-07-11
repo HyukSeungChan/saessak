@@ -58,6 +58,18 @@ public class Resume {
     // 주소
     private String address;
 
+    @Column(name = "career")
+    // 경력
+    private String career;
+
+    @Column(name = "account")
+    // 계좌번호
+    private String account;
+
+    @Column(name = "bank")
+    // 은행
+    private String bank;
+
     @Column(name = "agriculture")
     // 농업 구분
     private String agriculture;

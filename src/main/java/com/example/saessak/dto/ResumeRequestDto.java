@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,12 @@ public class ResumeRequestDto {
     private String phone;
     private String email;
     private String address;
+
+    private String career;
+
+    private String account;
+
+    private String bank;
     private String agriculture;
     private String crops;
     private String workStartDay;
@@ -52,6 +59,9 @@ public class ResumeRequestDto {
                 .email(email)
                 .address(address)
                 .agriculture(agriculture)
+                .career(career)
+                .account(account)
+                .bank(bank)
                 .crops(crops)
                 .workStartDay(workStartDay)
                 .workEndDay(workEndDay)
