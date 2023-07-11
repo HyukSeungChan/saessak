@@ -34,7 +34,7 @@ public class ResumeRequestDto {
     private String workStartTime;
     private String workEndTime;
     private String car;
-    private String userId;
+    private Long userId;
     private List<WorkResume> resumes = new ArrayList<>();
 
     public Resume toEntity() {

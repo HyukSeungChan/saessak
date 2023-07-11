@@ -24,7 +24,7 @@ public class WorkerRequestDto {
 
     private String interestCrops;
     private String badge;
-    private String userId;
+    private Long userId;
     private List<WorkerTodo> workerTodos = new ArrayList<>();
 
     public Worker toEntity() {

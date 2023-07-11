@@ -25,7 +25,7 @@ public class UserService {
 
     // 해당 유저 정보 확인
     @Transactional(readOnly = true)
-    public UserResponseDto findByUserId(String userId) {
+    public UserResponseDto findByUserId(Long userId) {
         User entity = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
         return new UserResponseDto(entity);
     }

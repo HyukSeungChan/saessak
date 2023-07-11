@@ -2,9 +2,12 @@ package com.example.saessak.controller;
 
 import com.example.saessak.dto.UserRequestDto;
 import com.example.saessak.dto.UserResponseDto;
+import com.example.saessak.entity.User;
+import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.AmazonS3Service;
 import com.example.saessak.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +32,18 @@ public class UserController {
     }
 
     // 해당 유저 정보 확인
-    @GetMapping("/user")
-    public ResponseEntity<UserResponseDto> findByUserId(@RequestParam("userId") String userId){
-        return ResponseEntity.ok(userService.findByUserId(userId));
+    @GetMapping("/user/info")
+    public ResponseEntity<ApiResponse> findByUserId(@RequestParam("userId") Long userId){
+        System.out.println("userinfo !!");
+        try {
+            ResponseEntity.notFound();
+            UserResponseDto user = userService.findByUserId(userId);
+//            return ResponseEntity.ok(user);
+            System.out.println("find user !!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","Post Created successfully", user));
+        } catch (IllegalArgumentException e) {
+            System.out.println("not user !!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user", null));
+        }
     }
 }

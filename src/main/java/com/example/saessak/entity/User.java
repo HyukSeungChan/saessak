@@ -19,7 +19,7 @@ public class User {
     @Id
     @Column(name = "user_id")
     // 사용자 ID
-    private String userId;
+    private Long userId;
 
     @Column(name = "name")
     // 이름
