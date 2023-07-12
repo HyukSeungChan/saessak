@@ -12,22 +12,22 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class WorkerTodo {
-
+public class UserFarm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "worker_todo_id")
-    // 노동자-일감ID
-    private int workerTodoId;
+    @Column(name = "user_farm_id")
+    // 유저-농장ID
+    private int userFarmId;
 
     @ManyToOne
-    @JoinColumn(name = "worker_id")
-    // 노동자ID
-    private Worker worker;
+    @JoinColumn(name = "user_id")
+    // 유저ID
+    private User user;
 
     @ManyToOne
-    @JoinColumn(name = "todo_id")
-    // 일감ID
-    private Todo todo;
+    @JoinColumn(name = "farm_id")
+    // 농장그룹ID
+    private Farm farm;
+
 
 }

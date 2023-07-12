@@ -1,8 +1,8 @@
 package com.example.saessak.dto;
 
 import com.example.saessak.entity.Todo;
-import com.example.saessak.entity.Worker;
-import com.example.saessak.entity.WorkerTodo;
+import com.example.saessak.entity.User;
+import com.example.saessak.entity.UserTodo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,18 +12,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkerTodoRequestDto {
+public class UserTodoRequestDto {
 
-    private int workerTodoId;
-    private int workerId;
+    private int userTodoId;
+    private Long userId;
     private int todoId;
 
-    public WorkerTodo toEntity() {
-        Worker worker = Worker.builder().workerId(workerId).build();
+    public UserTodo toEntity() {
+        User user = User.builder().userId(userId).build();
         Todo todo = Todo.builder().todoId(todoId).build();
 
-        return WorkerTodo.builder()
-                .worker(worker)
+        return UserTodo.builder()
+                .user(user)
                 .todo(todo)
                 .build();
     }

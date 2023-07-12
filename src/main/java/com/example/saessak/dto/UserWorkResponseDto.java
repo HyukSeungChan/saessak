@@ -1,6 +1,8 @@
 package com.example.saessak.dto;
 
 import com.example.saessak.entity.Farm;
+import com.example.saessak.entity.User;
+import com.example.saessak.entity.UserWork;
 import com.example.saessak.entity.Work;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +13,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkResponseDto {
+public class UserWorkResponseDto {
 
+    private int userWorkId;
+
+    private Long userId;
     private int workId;
 
+    // 일자리
     private int farmId;
 
     private String title;
@@ -58,28 +64,11 @@ public class WorkResponseDto {
     private String crops;
     private String cropsDetail;
 
-    public WorkResponseDto(Work work){
-        this.workId = work.getWorkId();
-        this.farmId = work.getFarm().getFarmId();
-        this.title = work.getTitle();
-        this.content = work.getContent();
-        this.recruitmentStart = work.getRecruitmentStart();
-        this.recruitmentEnd = work.getRecruitmentEnd();
-        this.recruitmentPerson = work.getRecruitmentPerson();
-        this.qualification = work.getQualification();
-        this.preferentialTreatment = work.getPreferentialTreatment();
-        this.hourWage = work.getHourWage();
-        this.dayWage = work.getDayWage();
-        this.workStartDay = work.getWorkStartDay();
-        this.workEndDay = work.getWorkEndDay();
-        this.workStartTime = work.getWorkStartTime();
-        this.workEndTime = work.getWorkEndTime();
-        this.state = work.getState();
-        this.etc = work.getEtc();
-    }
+    public UserWorkResponseDto(UserWork userWork, Work work, Farm farm) {
+        this.userWorkId = userWork.getUserWorkId();
+        this.userId = userWork.getUser().getUserId();
+        this.workId = userWork.getWork().getWorkId();
 
-    public WorkResponseDto(Work work, Farm farm) {
-        this.workId = work.getWorkId();
         this.farmId = work.getFarm().getFarmId();
         this.title = work.getTitle();
         this.content = work.getContent();
@@ -106,7 +95,6 @@ public class WorkResponseDto {
         this.agriculture = farm.getAgriculture();
         this.crops = farm.getCrops();
         this.cropsDetail = farm.getCrops_detail();
-
     }
 
 }

@@ -30,5 +30,6 @@ public class WorkResume {
     private Resume resume;
 
     @Column(name = "state")
+    // 상태
     private String state;
 }

@@ -57,10 +57,6 @@ public class Worker {
 
     @OneToMany(mappedBy = "worker")
     // mapping
-    private List<WorkerFarm> workerFarms = new ArrayList<>();
-
-    @OneToMany(mappedBy = "worker")
-    // mapping
     private List<WorkerTodo> workerTodos = new ArrayList<>();
 
 }

@@ -73,6 +73,6 @@ public class Farm {
 
     @OneToMany(mappedBy = "farm")
     // mapping
-    private List<WorkerFarm> workerFarms = new ArrayList<>();
+    private List<UserFarm> userFarms = new ArrayList<>();
 
 }
