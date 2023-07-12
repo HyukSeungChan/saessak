@@ -12,12 +12,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserSupport {
+public class UserPolicy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_support_id")
+    @Column(name = "user_policy_id")
     // 유저-지원정책ID
-    private int userSupportId;
+    private int userPolicyId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -25,7 +25,7 @@ public class UserSupport {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "support_id")
+    @JoinColumn(name = "policy_id")
     // 지원정책ID
-    private Support support;
+    private Policy policy;
 }

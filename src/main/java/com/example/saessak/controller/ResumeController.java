@@ -28,7 +28,7 @@ public class ResumeController {
 
     // 자신의 이력서 확인
     @GetMapping("/resume")
-    public ResponseEntity<ResumeResponseDto> findByUserUserId(@RequestParam("userId") String userId){
+    public ResponseEntity<ResumeResponseDto> findByUserUserId(@RequestParam("userId") Long userId){
         return ResponseEntity.ok(resumeService.findByUserUserId(userId));
     }
 

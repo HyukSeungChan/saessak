@@ -27,7 +27,7 @@ public class FarmResponseDto {
     private String crops;
     private String cropsDetail;
 
-    private User user;
+    private Long userId;
 
     public FarmResponseDto(Farm farm) {
         this.farmId = farm.getFarmId();
@@ -40,7 +40,7 @@ public class FarmResponseDto {
         this.agriculture = farm.getAgriculture();
         this.crops = farm.getCrops();
         this.cropsDetail = farm.getCrops_detail();
-        this.user = farm.getUser();
+        this.userId = farm.getUser().getUserId();
     }
 
 }

@@ -43,7 +43,7 @@ public class ResumeResponseDto {
     private String workEndTime;
     private String car;
 
-    private String userId;
+    private Long userId;
 
     private List<WorkResume> resumes = new ArrayList<>();
 

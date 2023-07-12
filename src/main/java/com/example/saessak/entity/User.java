@@ -53,8 +53,8 @@ public class User {
     // mapping
     private List<UserWork> userWorks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
-    // mapping
-    private List<UserSupport> userSupports = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    // mapping
+//    private List<UserPolicy> userPolicies = new ArrayList<>();
 
 }

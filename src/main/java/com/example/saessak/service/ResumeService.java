@@ -30,7 +30,7 @@ public class ResumeService {
 
     // 자신의 이력서 확인
     @Transactional(readOnly = true)
-    public ResumeResponseDto findByUserUserId(String userId) {
+    public ResumeResponseDto findByUserUserId(Long userId) {
         System.out.println("------ 자신의 이력서 확인 ------");
         Resume entity = resumeRepository.findByUserUserId(userId);
         return new ResumeResponseDto(entity);

@@ -14,13 +14,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Support {
+public class Policy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "support_id")
+    @Column(name = "policy_id")
     // 지원정책ID
-    private int supportId;
+    private int policyId;
 
     @Column(name = "name")
     // 지원사업명
@@ -28,38 +28,30 @@ public class Support {
 
     @Column(name = "target")
     // 지원대상
-    private String target;
+    private String address;
 
     @Column(name = "content")
     // 지원내용
     private String content;
 
-    @Column(name = "condition")
+    @Column(name = "terms")
     // 지원조건
-    private String condition;
+    private String  terms;
 
     @Column(name = "inquiry")
     // 문의
     private String inquiry;
 
     @Column(name = "period")
-    // 지원기간
-    private int period;
+    // 지원 기간
+    private String term;
 
     @Column(name = "organization")
-    // 댓글 수
-    private int organization;
-
-    @Column(name = "crops")
-    // 주체기관
-    private String crops;
+    // 주체 기관
+    private String agency;
 
     @Column(name = "type")
-    // 주체기관
+    // 지원사업유형
     private String type;
-
-    @OneToMany(mappedBy = "support")
-    // mapping
-    private List<UserSupport> userSupports = new ArrayList<>();
 
 }
