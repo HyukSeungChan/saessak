@@ -26,8 +26,17 @@ public class UserService {
     // 해당 유저 정보 확인
     @Transactional(readOnly = true)
     public UserResponseDto findByUserId(Long userId) {
+        System.out.println("------ 해당 유저 정보 확인 ------");
         User entity = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
         return new UserResponseDto(entity);
+    }
+
+    // 유저 탈퇴 -> 연관관계 이슈로 고민
+    @Transactional
+    public Boolean deleteByUserId(Long userId) {
+        System.out.println("------ 유저 탈퇴 ------");
+        userRepository.deleteByUserId(userId);
+        return true;
     }
 
 }

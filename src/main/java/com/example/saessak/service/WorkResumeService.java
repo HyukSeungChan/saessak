@@ -64,6 +64,8 @@ public class WorkResumeService {
         if (entity.getState().equals("승인")) {
             UserFarm userFarm = UserFarm.builder()
                     .user(entity.getResume().getUser())
+                    .dateStart(entity.getResume().getWorkStartDay())
+                    .dateEnd(entity.getResume().getWorkEndDay())
                     .farm(entity.getWork().getFarm())
                     .build();
             userFarmRepository.save(userFarm);

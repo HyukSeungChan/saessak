@@ -1,10 +1,13 @@
 package com.example.saessak.service;
 
+import com.example.saessak.dto.UserRequestDto;
 import com.example.saessak.dto.WorkRequestDto;
 import com.example.saessak.dto.WorkResponseDto;
 import com.example.saessak.dto.WorkerRequestDto;
+import com.example.saessak.entity.User;
 import com.example.saessak.entity.Work;
 import com.example.saessak.entity.Worker;
+import com.example.saessak.repository.UserRepository;
 import com.example.saessak.repository.WorkRepository;
 import com.example.saessak.repository.WorkerRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 public class WorkerService {
 
     private final WorkerRepository workerRepository;
+    private final UserRepository userRepository;
 
     // 노동자 생성
     @Transactional

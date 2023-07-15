@@ -13,15 +13,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkRequestDto {
-
-    private int workId;
-
     private int farmId;
     private String title;
     private String content;
     private String recruitmentStart;
     private String recruitmentEnd;
-    private String recruitmentPerson;
+    private int recruitmentPerson;
     private String qualification;
     private String preferentialTreatment;
     private int hourWage;
@@ -37,7 +34,7 @@ public class WorkRequestDto {
 
     private String state;
 
-    private String career;
+    private float career;
     private String etc;
 
     public Work toEntity() {
@@ -54,7 +51,7 @@ public class WorkRequestDto {
                 .qualification(qualification)
                 .preferentialTreatment(preferentialTreatment)
                 .hourWage(hourWage)
-                .dayWage(dayWage)
+                .dayWage(farm.getPay())
                 .workStartDay(workStartDay)
                 .workEndDay(workEndDay)
                 .workStartTime(workStartTime)

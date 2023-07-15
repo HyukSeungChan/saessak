@@ -21,16 +21,13 @@ public class ResumeResponseDto {
 
     private int resumeId;
     private String title;
-    private String areaFirst;
-    private String areaSecond;
-    private String areaThird;
     private String gender;
     private String birthday;
     private String phone;
     private String email;
     private String address;
 
-    private String career;
+    private float career;
 
     private String account;
 
@@ -50,9 +47,6 @@ public class ResumeResponseDto {
     public ResumeResponseDto(Resume resume) {
         this.resumeId = resume.getResumeId();
         this.title = resume.getTitle();
-        this.areaFirst = resume.getAreaFirst();
-        this.areaSecond = resume.getAreaSecond();
-        this.areaThird = resume.getAreaThird();
         this.gender = resume.getGender();
         this.birthday = resume.getBirthday();
         this.phone = resume.getPhone();

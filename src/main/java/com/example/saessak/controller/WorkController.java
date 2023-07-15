@@ -63,8 +63,8 @@ public class WorkController {
     }
 
     // 전체 일자리 공고 보기(노동자) 필터:지역
-    @GetMapping("/work/worker/all/address")
-    public ResponseEntity<ApiResponse> findAllByFarmAddressContaining(@RequestParam("address") String address) {
+    @GetMapping("/work/worker/address")
+    public ResponseEntity<ApiResponse> findAllByFarmAddressContaining(@RequestParam ("address") String address) {
         System.out.println("전체 일자리 공고 보기(노동자) 필터:지역 입장!!");
         try {
             ResponseEntity.notFound();
@@ -78,12 +78,12 @@ public class WorkController {
     }
 
     // 전체 일자리 공고 보기(노동자) 필터:농업구분
-    @GetMapping("/work/worker/all/agriculture")
-    public ResponseEntity<ApiResponse> findAllByFarmAgriculture(@RequestParam("agriculture") String agriculture) {
+    @GetMapping("/work/worker/agriculture")
+    public ResponseEntity<ApiResponse> findAllByFarmAgricultureContaining(@RequestParam("agriculture") String agriculture) {
         System.out.println("전체 일자리 공고 보기(노동자) 필터:농업구분");
         try {
             ResponseEntity.notFound();
-            List<WorkResponseDto> work = workService.findAllByFarmAgriculture(agriculture);
+            List<WorkResponseDto> work = workService.findAllByFarmAgricultureContaining(agriculture);
             System.out.println("find work !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
         } catch (IllegalArgumentException e) {
@@ -93,12 +93,12 @@ public class WorkController {
     }
 
     // 전체 일자리 공고 보기(노동자) 필터:희망작목
-    @GetMapping("/work/worker/all/crops")
+    @GetMapping("/work/worker/crops")
     public ResponseEntity<ApiResponse> findAllByFarmCrops(@RequestParam("crops") String crops) {
         System.out.println("전체 일자리 공고 보기(노동자) 필터:희망작목");
         try {
             ResponseEntity.notFound();
-            List<WorkResponseDto> work = workService.findAllByFarmCrops(crops);
+            List<WorkResponseDto> work = workService.findAllByFarmCropsContaining(crops);
             System.out.println("find work !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
         } catch (IllegalArgumentException e) {
@@ -108,12 +108,12 @@ public class WorkController {
     }
 
     // 전체 일자리 공고 보기(노동자) 필터:경력
-    @GetMapping("/work/worker/all/career")
-    public ResponseEntity<ApiResponse> findAllByCareerContaining(@RequestParam("career") String career) {
+    @GetMapping("/work/worker/career")
+    public ResponseEntity<ApiResponse> findAllByCareerContaining(@RequestParam("career") float career) {
         System.out.println("전체 일자리 공고 보기(노동자) 필터:경력");
         try {
             ResponseEntity.notFound();
-            List<WorkResponseDto> work = workService.findAllByCareerContaining(career);
+            List<WorkResponseDto> work = workService.findAllByCareer(career);
             System.out.println("find work !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
         } catch (IllegalArgumentException e) {
@@ -144,6 +144,23 @@ public class WorkController {
         try {
             ResponseEntity.notFound();
             List<WorkResponseDto> work = workService.searchWork(keyword);
+            System.out.println("find work !!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
+        } catch (IllegalArgumentException e) {
+            System.out.println("not work !!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found work", null));
+        }
+    }
+
+    // 추천 일자리터
+    @GetMapping("work/recommend")
+    public ResponseEntity<ApiResponse> workRecommend(@RequestParam("address") String address,
+                                                     @RequestParam("agriculture") String agriculture,
+                                                     @RequestParam("crops") String crops) {
+        System.out.println("추천 일자리터");
+        try {
+            ResponseEntity.notFound();
+            List<WorkResponseDto> work = workService.workRecommend(address, agriculture, crops);
             System.out.println("find work !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
         } catch (IllegalArgumentException e) {

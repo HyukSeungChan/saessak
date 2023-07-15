@@ -38,7 +38,7 @@ public class UserWorkController {
             System.out.println("find user work !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user work successfully", userWork));
         } catch (IllegalArgumentException e) {
-            System.out.println("not work resume worker !!");
+            System.out.println("not user work !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user work", null));
         }
     }

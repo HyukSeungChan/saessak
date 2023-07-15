@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,7 +24,16 @@ public class Reply {
 
     @Column(name = "content")
     // 내용
-    private int content;
+    private String content;
+
+
+    @Column(name = "upload_time")
+    // 업로드 시간
+    private String uploadTime;
+
+    @Column(name = "area")
+    // 지역
+    private String area;
 
     @ManyToOne
     @JoinColumn(name = "board_id")
@@ -33,5 +44,9 @@ public class Reply {
     @JoinColumn(name = "user_id")
     // 유저ID
     private User user;
+
+    @OneToMany(mappedBy = "reply")
+    // mapping
+    List<UserReply> userReplies = new ArrayList<>();
 
 }

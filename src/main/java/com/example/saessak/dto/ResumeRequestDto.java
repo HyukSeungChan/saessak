@@ -17,19 +17,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResumeRequestDto {
-
-    private int resumeId;
     private String title;
-    private String areaFirst;
-    private String areaSecond;
-    private String areaThird;
     private String gender;
     private String birthday;
     private String phone;
     private String email;
     private String address;
 
-    private String career;
+    private float career;
 
     private String account;
 
@@ -50,9 +45,6 @@ public class ResumeRequestDto {
 
         return Resume.builder()
                 .title(title)
-                .areaFirst(areaFirst)
-                .areaSecond(areaSecond)
-                .areaThird(areaThird)
                 .gender(gender)
                 .birthday(birthday)
                 .phone(phone)

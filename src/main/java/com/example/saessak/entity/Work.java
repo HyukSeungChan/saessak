@@ -45,7 +45,7 @@ public class Work {
 
     @Column(name = "recruitment_person")
     // 모집 인원
-    private String recruitmentPerson;
+    private int recruitmentPerson;
 
     @Column(name = "qualification")
     // 지원자격
@@ -85,7 +85,7 @@ public class Work {
 
     @Column(name = "career")
     // 경력
-    private String career;
+    private float career;
 
     @Column(name = "etc")
     // 기타

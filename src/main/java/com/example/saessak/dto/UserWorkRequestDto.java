@@ -13,9 +13,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserWorkRequestDto {
-
-    private int userWorkId;
-
     private Long userId;
     private int workId;
 

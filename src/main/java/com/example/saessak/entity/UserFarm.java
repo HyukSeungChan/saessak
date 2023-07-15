@@ -19,6 +19,12 @@ public class UserFarm {
     // 유저-농장ID
     private int userFarmId;
 
+    @Column(name = "date_start")
+    private String dateStart;
+
+    @Column(name = "date_end")
+    private String dateEnd;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     // 유저ID

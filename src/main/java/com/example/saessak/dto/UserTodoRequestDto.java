@@ -8,17 +8,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserTodoRequestDto {
-
-    private int userTodoId;
     private Long userId;
     private int todoId;
 
-    public UserTodo toEntity() {
+    public UserTodo toEntity(Long userId, int todoId) {
         User user = User.builder().userId(userId).build();
         Todo todo = Todo.builder().todoId(todoId).build();
 

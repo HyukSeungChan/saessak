@@ -14,13 +14,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class VideoCrops {
+public class Video {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "video_crops_id")
-    // 농작물 영상ID
-    private int videoCropsId;
+    @Column(name = "video_id")
+    // 영상ID
+    private int videoId;
 
     @Column(name = "title")
     // 영상제목
@@ -30,20 +30,20 @@ public class VideoCrops {
     // 출처
     private String source;
 
-    @Column(name = "source_name")
-    // 출처명
-    private String sourceName;
-
     @Column(name = "link")
     // 영상링크
     private String link;
 
+    @Column(name = "type")
+    // 영상타입
+    private String type;
+
+    @Column(name = "crops")
+    // 작물구분
+    private String crops;
+
     @Column(name = "crops_name")
     // 작물명
-    private String cropsName;
-
-    @OneToMany(mappedBy = "videoCrops")
-    // mapping
-    private List<UserVideoCrops> userVideoCrops = new ArrayList<>();
+    private String crops_name;
 
 }

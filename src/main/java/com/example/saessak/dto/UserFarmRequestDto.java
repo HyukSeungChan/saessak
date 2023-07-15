@@ -15,8 +15,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserFarmRequestDto {
 
-    private int userFarmId;
 
+    private String dateStart;
+
+    private String dateEnd;
     private Long userId;
     private int farmId;
 

@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 public class TodoResponseDto {
 
     private int todoId;
-    private String date;
-    private String task;
+//    private String date;
+//    private String task;
 
     public TodoResponseDto(Todo todo) {
         this.todoId = todo.getTodoId();
-        this.date = todo.getDate();
-        this.task = todo.getTask();
+//        this.date = todo.getDate();
+//        this.task = todo.getTask();
     }
 
 }

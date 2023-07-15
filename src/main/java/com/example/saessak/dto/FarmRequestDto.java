@@ -15,8 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FarmRequestDto {
-
-    private int farmId;
     private String name;
     private String address;
     private String farmImage;

@@ -14,8 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkerRequestDto {
-
-    private int workerId;
     private String certificate;
     private String area;
     private String agriculture;
@@ -25,7 +23,6 @@ public class WorkerRequestDto {
     private String interestCrops;
     private String badge;
     private Long userId;
-    private List<WorkerTodo> workerTodos = new ArrayList<>();
 
     public Worker toEntity() {
         User user = User.builder().userId(userId).build();
@@ -39,7 +36,6 @@ public class WorkerRequestDto {
                 .interestCrops(interestCrops)
                 .badge(badge)
                 .user(user)
-                .workerTodos(workerTodos)
                 .build();
     }
 

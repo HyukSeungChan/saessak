@@ -35,7 +35,7 @@ public class Farm {
     private String farmImage;
 
     @Column(name = "pay")
-    // 제시 시급
+    // 일급
     private int pay;
 
     @Column(name = "phone")

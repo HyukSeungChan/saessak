@@ -17,6 +17,9 @@ public class UserFarmResponseDto {
 
     private int userFarmId;
 
+    private String dateStart;
+
+    private String dateEnd;
     private Long userId;
     private int farmId;
 
@@ -28,29 +31,24 @@ public class UserFarmResponseDto {
     // 농장 정보
     private String farmName;
     private String address;
-    private String farmImage;
-    private int pay;
     private String phone;
     private String introduction;
-    private String agriculture;
-    private String crops;
-    private String cropsDetail;
 
-    public UserFarmResponseDto(UserFarm userFarm, User user) {
+    public UserFarmResponseDto(UserFarm userFarm, User user, Farm farm) {
         this.userFarmId = userFarm.getUserFarmId();
+        this.dateStart = userFarm.getDateStart();
+        this.dateEnd = userFarm.getDateEnd();
         this.userId = userFarm.getUser().getUserId();
         this.farmId = userFarm.getFarm().getFarmId();
 
         this.name = user.getName();
         this.profileImage = user.getProfileImage();
-    }
-
-    public UserFarmResponseDto(UserFarm userFarm, Farm farm) {
-        this.userFarmId = userFarm.getUserFarmId();
-        this.userId = userFarm.getUser().getUserId();
-        this.farmId = userFarm.getFarm().getFarmId();
 
         this.farmName = farm.getName();
+        this.address = farm.getAddress();
+        this.phone = farm.getPhone();
+        this.introduction = farm.getIntroduction();
 
     }
+
 }

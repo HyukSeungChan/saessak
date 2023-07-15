@@ -17,13 +17,10 @@ public interface WorkRepository extends JpaRepository<Work, Integer> {
     List<Work> findAllByFarmAddressContaining(String address);
 
     // 전체 일자리 공고 보기(노동자) 필터:농업구분
-    List<Work> findAllByFarmAgriculture(String agriculture);
+    List<Work> findAllByFarmAgricultureContaining(String agriculture);
 
     // 전체 일자리 공고 보기(노동자) 필터:희망작목
-    List<Work> findAllByFarmCrops(String crops);
-
-    // 전체 일자리 공고 보기(노동자) 필터:경력
-    List<Work> findAllByCareerContaining(String career);
+    List<Work> findAllByFarmCropsContaining(String crops);
 
     // 해당 일자리 공고 보기(노동자)
     Work findByWorkId(int workId);

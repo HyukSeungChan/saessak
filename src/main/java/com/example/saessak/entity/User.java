@@ -43,14 +43,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     // mapping
-    private List<UserVideoCrops> userVideoCrops = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    // mapping
-    private List<UserVideoLife> userVideoLifes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    // mapping
     private List<UserWork> userWorks = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
@@ -64,5 +56,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     // mapping
     private List<UserTodo> userTodos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    // mapping
+    private List<UserReply> userReplies = new ArrayList<>();
 
 }

@@ -1,6 +1,7 @@
 package com.example.saessak.dto;
 
 import com.example.saessak.entity.User;
+import com.example.saessak.entity.Worker;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,6 @@ public class UserRequestDto {
     private String type;
 
     public User toEntity() {
-
         return User.builder()
                 .userId(userId)
                 .name(name)

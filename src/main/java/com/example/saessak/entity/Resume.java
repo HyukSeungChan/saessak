@@ -26,18 +26,6 @@ public class Resume {
     // 제목
     private String title;
 
-    @Column(name = "area_first")
-    // 희망 일자리1
-    private String areaFirst;
-
-    @Column(name = "area_second")
-    // 희망 일자리2
-    private String areaSecond;
-
-    @Column(name = "area_third")
-    // 희망 일자리3
-    private String areaThird;
-
     @Column(name = "gender")
     // 성별
     private String gender;
@@ -60,7 +48,7 @@ public class Resume {
 
     @Column(name = "career")
     // 경력
-    private String career;
+    private float career;
 
     @Column(name = "account")
     // 계좌번호

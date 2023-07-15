@@ -26,8 +26,8 @@ public class FarmController {
 
     // 농장 생성
     @PostMapping(value = "/farm", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<FarmRequestDto> save(@RequestPart("farmRequestDto") FarmRequestDto farmRequestDto, @RequestPart("file") List<MultipartFile> multipartFiles) throws IOException {
-        farmService.save(farmRequestDto, amazonS3Service.upload(multipartFiles).toString());
+    public ResponseEntity<FarmRequestDto> save(@RequestPart("farmRequestDto") FarmRequestDto farmRequestDto, @RequestPart("file") MultipartFile multipartFile) throws IOException {
+        farmService.save(farmRequestDto, amazonS3Service.upload(multipartFile).toString());
         return ResponseEntity.ok(farmRequestDto);
     }
 }

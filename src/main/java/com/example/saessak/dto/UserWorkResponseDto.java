@@ -31,7 +31,7 @@ public class UserWorkResponseDto {
 
     private String recruitmentEnd;
 
-    private String recruitmentPerson;
+    private int recruitmentPerson;
 
     private String qualification;
 

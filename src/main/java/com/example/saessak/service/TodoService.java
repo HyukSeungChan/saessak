@@ -4,7 +4,9 @@ import com.example.saessak.dto.TodoRequestDto;
 import com.example.saessak.dto.UserRequestDto;
 import com.example.saessak.dto.UserResponseDto;
 import com.example.saessak.entity.Todo;
+import com.example.saessak.entity.TodoFarm;
 import com.example.saessak.entity.User;
+import com.example.saessak.repository.TodoFarmRepository;
 import com.example.saessak.repository.TodoRepository;
 import com.example.saessak.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +19,15 @@ public class TodoService {
 
     private final TodoRepository todoRepository;
 
-    // 할일 생성
+    private final TodoFarmRepository todoFarmRepository;
+
+    // 할 일 생성
     @Transactional
     public Todo save(TodoRequestDto todoRequestDto) {
         System.out.println("------ 할일 생성 ------");
-        return todoRepository.save(todoRequestDto.toEntity());
+        Todo todo = todoRequestDto.toEntity();
+        todoRepository.save(todo);
+        return todo;
     }
 
 

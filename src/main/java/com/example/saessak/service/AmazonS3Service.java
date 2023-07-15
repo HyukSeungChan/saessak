@@ -29,30 +29,25 @@ public class AmazonS3Service {
 
     private final AmazonS3Client amazonS3Client;
 
-    public List<String> upload(List<MultipartFile> multipartFiles) throws IOException {
-        List<String> fileNameList = new ArrayList<>();
-
+    public String upload(MultipartFile multipartFile) throws IOException {
 
         // forEach 구문을 통해 multipartFile로 넘어온 파일들 하나씩 fileNameList에 추가
-        multipartFiles.forEach(file -> {
-            String fileName = createFileName(file.getOriginalFilename());
-            ObjectMetadata objectMetadata = new ObjectMetadata();
-            objectMetadata.setContentLength(file.getSize());
-            objectMetadata.setContentType(file.getContentType());
 
-            try(InputStream inputStream = file.getInputStream()) {
-                amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
-                        .withCannedAcl(CannedAccessControlList.PublicRead));
-            } catch(IOException e) {
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
-            }
+        String fileName = createFileName(multipartFile.getOriginalFilename());
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(multipartFile.getSize());
+        objectMetadata.setContentType(multipartFile.getContentType());
 
-            String uploadFileUrl = amazonS3Client.getUrl(bucket, fileName).toString();
+        try(InputStream inputStream = multipartFile.getInputStream()) {
+            amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+        } catch(IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
+        }
 
-            fileNameList.add(uploadFileUrl);
-        });
+        String uploadFileUrl = amazonS3Client.getUrl(bucket, fileName).toString();
 
-        return fileNameList;
+        return uploadFileUrl;
     }
 
     public void deleteFile(String fileName) {

@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkResumeRequestDto {
-
-    private int workResumeId;
     private int workId;
     private int resumeId;
     private String state;

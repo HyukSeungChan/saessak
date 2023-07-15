@@ -55,8 +55,4 @@ public class Worker {
     // 유저ID
     private User user;
 
-    @OneToMany(mappedBy = "worker")
-    // mapping
-    private List<WorkerTodo> workerTodos = new ArrayList<>();
-
 }

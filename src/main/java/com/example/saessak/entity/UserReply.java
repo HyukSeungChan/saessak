@@ -12,12 +12,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserVideoCrops {
+public class UserReply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_video_crops_id")
-    // 유저-영상ID
-    private int userVideoCropsId;
+    @Column(name = "user_reply_id")
+    // 유저-댓글ID
+    private int userReplyId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -25,7 +25,8 @@ public class UserVideoCrops {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "video_crops_id")
-    // 영상ID
-    private VideoCrops videoCrops;
+    @JoinColumn(name = "reply_id")
+    // 댓글ID
+    private Reply reply;
+
 }

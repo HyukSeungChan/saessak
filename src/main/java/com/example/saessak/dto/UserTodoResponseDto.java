@@ -18,10 +18,14 @@ public class UserTodoResponseDto {
     private Long userId;
     private int todoId;
 
+    // 할일
+    private String task;
+
     public UserTodoResponseDto (UserTodo userTodo) {
         this.userTodoId = userTodo.getUserTodoId();
         this.userId = userTodo.getUser().getUserId();
         this.todoId = userTodo.getTodo().getTodoId();
+        this.task = userTodo.getTodo().getTask();
     }
 
 }

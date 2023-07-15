@@ -24,9 +24,8 @@ public class UserTodoController {
 
     // 유저에게 할 일 할당 (농장주)
     @PostMapping("/user/todo")
-    public ResponseEntity<UserTodoRequestDto> save(@RequestBody UserTodoRequestDto userTodoRequestDto) {
-        userTodoService.save(userTodoRequestDto);
-        return ResponseEntity.ok(userTodoRequestDto);
+    public ResponseEntity<UserTodo> save(@RequestParam("userId") List<Long> userId, @RequestParam("todoId") int todoId) {
+        return ResponseEntity.ok(userTodoService.save(userId, todoId));
     }
 
     // 할 일 조회(유저)
@@ -40,10 +39,12 @@ public class UserTodoController {
             System.out.println("find user todo !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user todo successfully", userTodo));
         } catch (IllegalArgumentException e) {
-            System.out.println("not work resume worker !!");
+            System.out.println("not user todo !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user todo", null));
         }
     }
+
+    // 할 일 조회 (농장주)
 
 
 }

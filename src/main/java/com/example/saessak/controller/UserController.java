@@ -26,8 +26,8 @@ public class UserController {
 
     // 유저 생성
     @PostMapping(value = "/user", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<UserRequestDto> save(@RequestPart("userRequestDto") UserRequestDto userRequestDto, @RequestPart("file") List<MultipartFile> multipartFiles) throws IOException {
-        userService.save(userRequestDto, amazonS3Service.upload(multipartFiles).toString());
+    public ResponseEntity<UserRequestDto> save(@RequestPart("userRequestDto") UserRequestDto userRequestDto, @RequestPart("file") MultipartFile multipartFile) throws IOException {
+        userService.save(userRequestDto, amazonS3Service.upload(multipartFile).toString());
         return ResponseEntity.ok(userRequestDto);
     }
 
@@ -46,4 +46,13 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user", null));
         }
     }
+
+    // 유저 탈퇴
+    @DeleteMapping("/user/exit")
+    public ResponseEntity<Boolean> deleteByUserId(@RequestParam("userId") Long userId) {
+        System.out.println("userexit !!");
+        return ResponseEntity.ok(userService.deleteByUserId(userId));
+    }
+
+
 }

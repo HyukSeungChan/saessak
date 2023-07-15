@@ -25,7 +25,7 @@ public class WorkResponseDto {
 
     private String recruitmentEnd;
 
-    private String recruitmentPerson;
+    private int recruitmentPerson;
 
     private String qualification;
 
@@ -43,6 +43,7 @@ public class WorkResponseDto {
 
     private String workEndTime;
 
+    private float career;
     private String state;
     private String etc;
 
@@ -74,6 +75,7 @@ public class WorkResponseDto {
         this.workEndDay = work.getWorkEndDay();
         this.workStartTime = work.getWorkStartTime();
         this.workEndTime = work.getWorkEndTime();
+        this.career = work.getCareer();
         this.state = work.getState();
         this.etc = work.getEtc();
     }

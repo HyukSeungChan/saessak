@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TodoRequestDto {
 
-    private int todoId;
     private String date;
     private String task;
 

@@ -3,9 +3,7 @@ package com.example.saessak.controller;
 import com.example.saessak.dto.TodoRequestDto;
 import com.example.saessak.dto.UserRequestDto;
 import com.example.saessak.dto.UserResponseDto;
-import com.example.saessak.service.AmazonS3Service;
-import com.example.saessak.service.TodoService;
-import com.example.saessak.service.UserService;
+import com.example.saessak.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +19,7 @@ public class TodoController {
 
     private final TodoService todoService;
 
+    private final UserTodoService userTodoService;
 
     // 할일 생성
     @PostMapping("/todo")
