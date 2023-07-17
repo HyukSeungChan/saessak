@@ -1,6 +1,7 @@
 package com.example.saessak.controller;
 
 import com.example.saessak.dto.WorkerRequestDto;
+import com.example.saessak.dto.WorkerResponseDto;
 import com.example.saessak.entity.Worker;
 import com.example.saessak.payload.ApiResponse;
 
@@ -30,7 +31,7 @@ public class WorkerController {
         System.out.println("노동자 받아오기 입장!!");
         try {
             ResponseEntity.notFound();
-            Worker worker = workerService.findWorker(userId);
+            WorkerResponseDto worker = workerService.findWorker(userId);
             System.out.println("find worker !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get worker successfully", worker));
         } catch (IllegalArgumentException e) {

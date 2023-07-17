@@ -37,6 +37,7 @@ public class User {
     // 유저타입
     private String type;
 
+
     @OneToMany(mappedBy = "user")
     // mapping
     private List<UserBoard> userBoards = new ArrayList<>();
