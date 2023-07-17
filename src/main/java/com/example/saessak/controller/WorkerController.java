@@ -5,6 +5,8 @@ import com.example.saessak.entity.Worker;
 import com.example.saessak.payload.ApiResponse;
 
 import com.example.saessak.service.WorkerService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +33,12 @@ public class WorkerController {
         try {
             ResponseEntity.notFound();
             Worker worker = workerService.findWorker(userId);
-            System.out.println("find worker !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get worker successfully", worker));
-        } catch (IllegalArgumentException e) {
+            System.out.println("find worker !!" + worker.getWorkerId());
+            ObjectMapper mapper = new ObjectMapper();
+
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get worker successfully", mapper.writeValueAsString(worker)));
+        } catch (IllegalArgumentException | JsonProcessingException e) {
+            e.printStackTrace();
             System.out.println("not worker !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found worker", null));
         }
