@@ -1,22 +1,20 @@
 package com.example.saessak.controller;
 
 import com.example.saessak.dto.*;
-import com.example.saessak.entity.Board;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.AmazonS3Service;
 import com.example.saessak.service.BoardService;
-import com.example.saessak.service.FarmService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -106,10 +104,15 @@ public class BoardContoller {
             List<BoardResponseDto> board = boardService.findAllByOrderByLikesDesc();
 //            return ResponseEntity.ok(user);
             System.out.println("find board hot !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board hot successfully", board));
-        } catch (IllegalArgumentException e) {
+//            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board hot successfully", board));
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValueAsString(board);
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("NotFound","cant found get board hot", mapper.writeValueAsString(board)));
+        } catch (IllegalArgumentException | JsonProcessingException e) {
             System.out.println("not board hot !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board hot", null));
+//            return "";
         }
     }
 

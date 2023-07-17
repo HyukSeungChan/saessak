@@ -6,7 +6,11 @@ import com.example.saessak.entity.User;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.AmazonS3Service;
 import com.example.saessak.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +44,16 @@ public class UserController {
             UserResponseDto user = userService.findByUserId(userId);
 //            return ResponseEntity.ok(user);
             System.out.println("find user !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","Post Created successfully", user));
-        } catch (IllegalArgumentException e) {
+
+            JSONObject jsonObject = new JSONObject();
+            JSONParser parser = new JSONParser();
+
+            ObjectMapper mapper = new ObjectMapper();
+
+//            jsonObject = (JSONObject) parser.parse(user);
+
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","Post Created successfully", mapper.writeValueAsString(user)));
+        } catch (IllegalArgumentException | JsonProcessingException e) {
             System.out.println("not user !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user", null));
         }

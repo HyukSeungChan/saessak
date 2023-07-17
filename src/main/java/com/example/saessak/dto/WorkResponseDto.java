@@ -52,11 +52,11 @@ public class WorkResponseDto {
     private String name;
     private String address;
     private String farmImage;
+    private String agriculture;
+    private String crops;
     private int pay;
     private String phone;
     private String introduction;
-    private String agriculture;
-    private String crops;
     private String cropsDetail;
 
     public WorkResponseDto(Work work){

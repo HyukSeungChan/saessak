@@ -36,7 +36,7 @@ public class UserWorkController {
             List<UserWorkResponseDto> userWork = userWorkService.findAllByUserUserId(userId);
 //            return ResponseEntity.ok(user);
             System.out.println("find user work !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user work successfully", userWork));
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user work successfully", null));
         } catch (IllegalArgumentException e) {
             System.out.println("not user work !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user work", null));

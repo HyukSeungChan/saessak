@@ -1,7 +1,6 @@
 package com.example.saessak.repository;
 
 import com.example.saessak.entity.UserFarm;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
