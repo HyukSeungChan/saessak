@@ -23,7 +23,7 @@ public class ResumeService {
 
     // 이력서 생성
     @Transactional
-    public Resume save(ResumeRequestDto resumeRequestDto){
+    public Resume save(ResumeRequestDto resumeRequestDto) {
         System.out.println("------ 이력서 생성 ------");
         return resumeRepository.save(resumeRequestDto.toEntity());
     }
@@ -33,6 +33,17 @@ public class ResumeService {
     public ResumeResponseDto findByUserUserId(Long userId) {
         System.out.println("------ 자신의 이력서 확인 ------");
         Resume entity = resumeRepository.findByUserUserId(userId);
+        return new ResumeResponseDto(entity);
+    }
+
+    // 일자리에서 지원하기 눌렀을 때
+    @Transactional(readOnly = true)
+    public ResumeResponseDto workApply(Long userId) {
+        System.out.println("------ 일자리에서 지원하기 눌렀을 때 ------");
+        Resume entity = resumeRepository.findByUserUserId(userId);
+        if (entity == null) {
+            return new ResumeResponseDto();
+        }
         return new ResumeResponseDto(entity);
     }
 

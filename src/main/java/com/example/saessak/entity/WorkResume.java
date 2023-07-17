@@ -32,4 +32,8 @@ public class WorkResume {
     @Column(name = "state")
     // 상태
     private String state;
+
+    @Column(name = "date")
+    // 지원날짜
+    private String date;
 }

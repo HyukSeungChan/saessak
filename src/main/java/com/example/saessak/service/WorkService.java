@@ -1,5 +1,7 @@
 package com.example.saessak.service;
 
+import com.example.saessak.dto.WorkListResponseDto;
+import com.example.saessak.dto.WorkRecommendResponseDto;
 import com.example.saessak.dto.WorkRequestDto;
 import com.example.saessak.dto.WorkResponseDto;
 import com.example.saessak.entity.Farm;
@@ -40,10 +42,10 @@ public class WorkService {
 
     // 전체 일자리 공고 보기(노동자)
     @Transactional(readOnly = true)
-    public List<WorkResponseDto> findAll() {
+    public List<WorkListResponseDto> findAll() {
         System.out.println("------ 전체 일자리 공고 보기(노동자) ------");
         List<Work> entity = workRepository.findAll();
-        return entity.stream().map(work -> new WorkResponseDto(work, work.getFarm())).collect(Collectors.toList());
+        return entity.stream().map(work -> new WorkListResponseDto(work, work.getFarm())).collect(Collectors.toList());
     }
     
     // 전체 일자리 공고 보기(노동자) 필터:지역
@@ -143,7 +145,7 @@ public class WorkService {
 
     // 추천 일자리터
     @Transactional(readOnly = true)
-    public List<WorkResponseDto> workRecommend(String address, String agriculture, String crops) {
+    public List<WorkRecommendResponseDto> workRecommend(String address, String agriculture, String crops) {
         System.out.println("------ 추천 일자리터 ------");
         List<Work> entity = workRepository.findAll();
 
@@ -169,7 +171,7 @@ public class WorkService {
         }
 
         return entity.stream()
-                .map(work -> new WorkResponseDto(work, work.getFarm()))
+                .map(WorkRecommendResponseDto::new)
                 .collect(Collectors.toList());
     }
 

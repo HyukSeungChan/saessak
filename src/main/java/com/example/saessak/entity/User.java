@@ -61,4 +61,11 @@ public class User {
     // mapping
     private List<UserReply> userReplies = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    // mapping
+    private List<UserVideo> userVideos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    // mapping
+    private List<UserTodoFarm> userTodoFarms = new ArrayList<>();
 }

@@ -28,7 +28,11 @@ public class Policy {
 
     @Column(name = "target")
     // 지원대상
-    private String address;
+    private String target;
+
+    @Column(name = "area")
+    // 지역
+    private String area;
 
     @Column(name = "content")
     // 지원내용

@@ -31,7 +31,7 @@ public class UserBoardService {
     // 유저-글 즐겨찾기 조회
     @Transactional(readOnly = true)
     public List<UserBoardResponseDto> findAllByUserUserId(Long userId) {
-        System.out.println("------ 유저-일자리 즐겨찾기 조회 ------");
+        System.out.println("------ 유저-글 즐겨찾기 조회 ------");
         List<UserBoard> entity = userBoardRepository.findAllByUserUserId(userId);
         return entity.stream().map(UserBoardResponseDto::new).collect(Collectors.toList());
     }

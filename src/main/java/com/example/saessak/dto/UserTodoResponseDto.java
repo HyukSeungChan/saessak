@@ -2,7 +2,9 @@ package com.example.saessak.dto;
 
 import com.example.saessak.entity.Todo;
 import com.example.saessak.entity.User;
+import com.example.saessak.entity.UserFarm;
 import com.example.saessak.entity.UserTodo;
+import com.example.saessak.repository.UserFarmRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,11 +23,14 @@ public class UserTodoResponseDto {
     // 할일
     private String task;
 
+
     public UserTodoResponseDto (UserTodo userTodo) {
         this.userTodoId = userTodo.getUserTodoId();
         this.userId = userTodo.getUser().getUserId();
         this.todoId = userTodo.getTodo().getTodoId();
+
         this.task = userTodo.getTodo().getTask();
+
     }
 
 }

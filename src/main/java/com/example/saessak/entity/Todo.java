@@ -37,4 +37,8 @@ public class Todo {
     @OneToMany(mappedBy = "todo")
     // mapping
     private List<UserTodo> userTodos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "todo")
+    // mapping
+    private List<UserTodoFarm> userTodofarms = new ArrayList<>();
 }

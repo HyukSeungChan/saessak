@@ -1,8 +1,6 @@
 package com.example.saessak.controller;
 
-import com.example.saessak.dto.UserResponseDto;
-import com.example.saessak.dto.WorkRequestDto;
-import com.example.saessak.dto.WorkResponseDto;
+import com.example.saessak.dto.*;
 import com.example.saessak.entity.Work;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.WorkService;
@@ -26,12 +24,6 @@ public class WorkController {
         return ResponseEntity.ok(workRequestDto);
     }
 
-//    // 일자리 공고 확인(농장주가 생성)
-//    @GetMapping("/work/farm")
-//    public ResponseEntity<List<WorkResponseDto>> findByFarm(@RequestParam("farmId") int farmId) {
-//        return ResponseEntity.ok(workService.findAllByFarm(farmId));
-//    }
-
     // 일자리 공고 확인(농장주가 생성)
     @GetMapping("/work/farm")
     public ResponseEntity<ApiResponse> findAllByFarmUserUserId(@RequestParam("userId") long userId) {
@@ -53,7 +45,7 @@ public class WorkController {
         System.out.println("전체 일자리 공고 보기(노동자) 입장!!");
         try {
             ResponseEntity.notFound();
-            List<WorkResponseDto> work = workService.findAll();
+            List<WorkListResponseDto> work = workService.findAll();
             System.out.println("find work !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
         } catch (IllegalArgumentException e) {
@@ -160,7 +152,7 @@ public class WorkController {
         System.out.println("추천 일자리터");
         try {
             ResponseEntity.notFound();
-            List<WorkResponseDto> work = workService.workRecommend(address, agriculture, crops);
+            List<WorkRecommendResponseDto> work = workService.workRecommend(address, agriculture, crops);
             System.out.println("find work !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
         } catch (IllegalArgumentException e) {

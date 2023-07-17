@@ -15,6 +15,8 @@ public class WorkResumeRequestDto {
     private int resumeId;
     private String state;
 
+    private String date;
+
     public WorkResume toEntity() {
         Work work = Work.builder().workId(workId).build();
         Resume resume = Resume.builder().resumeId(resumeId).build();
@@ -23,6 +25,7 @@ public class WorkResumeRequestDto {
                 .work(work)
                 .resume(resume)
                 .state(state)
+                .date(date)
                 .build();
     }
 
