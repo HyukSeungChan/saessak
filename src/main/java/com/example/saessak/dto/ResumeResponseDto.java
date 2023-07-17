@@ -42,11 +42,12 @@ public class ResumeResponseDto {
 
     private Long userId;
 
-    private List<WorkResume> resumes = new ArrayList<>();
+    private String name;
 
     public ResumeResponseDto(Resume resume) {
         this.resumeId = resume.getResumeId();
         this.title = resume.getTitle();
+        this.name = resume.getUser().getName();
         this.gender = resume.getGender();
         this.birthday = resume.getBirthday();
         this.phone = resume.getPhone();

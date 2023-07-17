@@ -46,4 +46,7 @@ public class Video {
     // 작물명
     private String crops_name;
 
+    @OneToMany(mappedBy = "video")
+    // mapping
+    private List<UserVideo> userVideos = new ArrayList<>();
 }

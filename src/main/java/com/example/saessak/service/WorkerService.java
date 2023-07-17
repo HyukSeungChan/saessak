@@ -31,4 +31,12 @@ public class WorkerService {
         return workerRepository.save(workerRequestDto.toEntity());
     }
 
+    // 노동자 받아오기
+    @Transactional(readOnly = true)
+    public Worker findWorker(Long userId) {
+        System.out.println("------ 노동자 받아오기 ------");
+        Worker entity = workerRepository.findByUserUserId(userId);
+        return entity;
+    }
+
 }

@@ -1,10 +1,13 @@
 package com.example.saessak.service;
 
+import com.example.saessak.dto.ResumeRequestDto;
 import com.example.saessak.dto.UserFarmRequestDto;
 import com.example.saessak.dto.WorkResumeRequestDto;
 import com.example.saessak.dto.WorkResumeResponseDto;
+import com.example.saessak.entity.Resume;
 import com.example.saessak.entity.WorkResume;
 import com.example.saessak.entity.UserFarm;
+import com.example.saessak.repository.ResumeRepository;
 import com.example.saessak.repository.WorkResumeRepository;
 import com.example.saessak.repository.UserFarmRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +22,8 @@ import java.util.stream.Collectors;
 public class WorkResumeService {
 
     private final WorkResumeRepository workResumeRepository;
+
+    private final ResumeRepository resumeRepository;
 
     private final UserFarmRepository userFarmRepository;
 

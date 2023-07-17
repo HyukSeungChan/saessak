@@ -3,11 +3,9 @@ package com.example.saessak.service;
 import com.example.saessak.dto.UserTodoRequestDto;
 import com.example.saessak.dto.UserTodoResponseDto;
 import com.example.saessak.dto.UserWorkResponseDto;
-import com.example.saessak.entity.Todo;
-import com.example.saessak.entity.User;
-import com.example.saessak.entity.UserTodo;
-import com.example.saessak.entity.UserWork;
+import com.example.saessak.entity.*;
 import com.example.saessak.repository.TodoRepository;
+import com.example.saessak.repository.UserFarmRepository;
 import com.example.saessak.repository.UserRepository;
 import com.example.saessak.repository.UserTodoRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +21,8 @@ import java.util.stream.Collectors;
 public class UserTodoService {
 
     private final UserTodoRepository userTodoRepository;
+
+    private final UserFarmRepository userFarmRepository;
 
 
     // 유저에게 할 일 할당 (농장주)
@@ -47,7 +47,7 @@ public class UserTodoService {
     public List<UserTodoResponseDto> findAllByUserUserIdAndTodoDate(Long userId, String date) {
         System.out.println("------ 할 일 조회(유저) ------");
         List<UserTodo> entity = userTodoRepository.findAllByUserUserIdAndTodoDate(userId, date);
-        return entity.stream().map(UserTodoResponseDto::new).collect(Collectors.toList());
+        return entity.stream().map(userTodo -> new UserTodoResponseDto(userTodo)).collect(Collectors.toList());
     }
 
     // 할 일 조회 (농장주)

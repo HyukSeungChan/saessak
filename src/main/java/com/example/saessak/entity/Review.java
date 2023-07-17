@@ -39,6 +39,11 @@ public class Review {
     // 유저ID
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "farm_id")
+    // 농장ID
+    private Farm farm;
+
     @OneToMany(mappedBy = "review")
     // mapping
     private List<ReviewFarm> reviewFarms = new ArrayList<>();
