@@ -37,7 +37,6 @@ public class ResumeRequestDto {
     private String workEndTime;
     private String car;
     private Long userId;
-    private List<WorkResume> resumes = new ArrayList<>();
 
     public Resume toEntity() {
 
@@ -61,7 +60,6 @@ public class ResumeRequestDto {
                 .workEndTime(workEndTime)
                 .car(car)
                 .user(user)
-                .resumes(resumes)
                 .build();
     }
 }

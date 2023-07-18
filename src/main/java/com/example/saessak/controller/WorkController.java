@@ -33,9 +33,10 @@ public class WorkController {
         try {
             ResponseEntity.notFound();
             List<WorkResponseDto> work = workService.findAllByFarmUserUserId(userId);
+            ObjectMapper mapper = new ObjectMapper();
             System.out.println("find work !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
+        } catch (Exception e) {
             System.out.println("not work !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found work", null));
         }
@@ -47,11 +48,12 @@ public class WorkController {
         System.out.println("전체 일자리 공고 보기(노동자) 입장!!");
         try {
             ResponseEntity.notFound();
-            List<WorkListResponseDto> work = workService.findAll();
+            List<WorkResponseDto> work = workService.findAll();
+            ObjectMapper mapper = new ObjectMapper();
             System.out.println("find work !!");
 
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
+        } catch (Exception e) {
             System.out.println("not work !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found work", null));
         }
@@ -64,9 +66,10 @@ public class WorkController {
         try {
             ResponseEntity.notFound();
             List<WorkResponseDto> work = workService.findAllByFarmAddressContaining(address);
+            ObjectMapper mapper = new ObjectMapper();
             System.out.println("find work !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
+        } catch (Exception e) {
             System.out.println("not work !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found work", null));
         }
@@ -79,9 +82,10 @@ public class WorkController {
         try {
             ResponseEntity.notFound();
             List<WorkResponseDto> work = workService.findAllByFarmAgricultureContaining(agriculture);
+            ObjectMapper mapper = new ObjectMapper();
             System.out.println("find work !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
+        } catch (Exception e) {
             System.out.println("not work !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found work", null));
         }
@@ -94,9 +98,10 @@ public class WorkController {
         try {
             ResponseEntity.notFound();
             List<WorkResponseDto> work = workService.findAllByFarmCropsContaining(crops);
+            ObjectMapper mapper = new ObjectMapper();
             System.out.println("find work !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
+        } catch (Exception e) {
             System.out.println("not work !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found work", null));
         }
@@ -109,9 +114,10 @@ public class WorkController {
         try {
             ResponseEntity.notFound();
             List<WorkResponseDto> work = workService.findAllByCareer(career);
+            ObjectMapper mapper = new ObjectMapper();
             System.out.println("find work !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
+        } catch (Exception e) {
             System.out.println("not work !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found work", null));
         }
@@ -124,9 +130,10 @@ public class WorkController {
         try {
             ResponseEntity.notFound();
             WorkResponseDto work = workService.findByWorkId(workId);
+            ObjectMapper mapper = new ObjectMapper();
             System.out.println("find work !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
+        } catch (Exception e) {
             System.out.println("not work !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found work", null));
         }
@@ -139,9 +146,10 @@ public class WorkController {
         try {
             ResponseEntity.notFound();
             List<WorkResponseDto> work = workService.searchWork(keyword);
+            ObjectMapper mapper = new ObjectMapper();
             System.out.println("find work !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
+        } catch (Exception e) {
             System.out.println("not work !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found work", null));
         }
@@ -160,7 +168,7 @@ public class WorkController {
 
             System.out.println("find work !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
-        } catch (IllegalArgumentException | JsonProcessingException e) {
+        } catch (Exception e) {
             System.out.println("not work !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found work", null));
         }

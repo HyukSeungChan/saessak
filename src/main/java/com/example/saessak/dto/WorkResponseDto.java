@@ -59,27 +59,6 @@ public class WorkResponseDto {
     private String introduction;
     private String cropsDetail;
 
-//    public WorkResponseDto(Work work){
-//        this.workId = work.getWorkId();
-//        this.farmId = work.getFarm().getFarmId();
-//        this.title = work.getTitle();
-//        this.content = work.getContent();
-//        this.recruitmentStart = work.getRecruitmentStart();
-//        this.recruitmentEnd = work.getRecruitmentEnd();
-//        this.recruitmentPerson = work.getRecruitmentPerson();
-//        this.qualification = work.getQualification();
-//        this.preferentialTreatment = work.getPreferentialTreatment();
-//        this.hourWage = work.getHourWage();
-//        this.dayWage = work.getDayWage();
-//        this.workStartDay = work.getWorkStartDay();
-//        this.workEndDay = work.getWorkEndDay();
-//        this.workStartTime = work.getWorkStartTime();
-//        this.workEndTime = work.getWorkEndTime();
-//        this.career = work.getCareer();
-//        this.state = work.getState();
-//        this.etc = work.getEtc();
-//    }
-
     public WorkResponseDto(Work work, Farm farm) {
         this.workId = work.getWorkId();
         this.farmId = work.getFarm().getFarmId();
@@ -89,6 +68,7 @@ public class WorkResponseDto {
         this.recruitmentEnd = work.getRecruitmentEnd();
         this.recruitmentPerson = work.getRecruitmentPerson();
         this.qualification = work.getQualification();
+        this.career = work.getCareer();
         this.preferentialTreatment = work.getPreferentialTreatment();
         this.hourWage = work.getHourWage();
         this.dayWage = work.getDayWage();
