@@ -17,6 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResumeRequestDto {
+
+    private int resumeId;
     private String title;
     private String gender;
     private String birthday;
@@ -43,6 +45,7 @@ public class ResumeRequestDto {
         User user = User.builder().userId(userId).build();
 
         return Resume.builder()
+                .resumeId(resumeId)
                 .title(title)
                 .gender(gender)
                 .birthday(birthday)

@@ -54,6 +54,10 @@ public class Board {
     // 카테고리(농업구분)
     private String agriculture;
 
+    @Column(name = "crops")
+    // 카테고리(작목구분)
+    private String crops;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     // 유저ID

@@ -1,11 +1,11 @@
 package com.example.saessak.service;
 
+import com.example.saessak.dto.VideoResponseDto;
 import com.example.saessak.dto.WorkRecommendResponseDto;
 import com.example.saessak.dto.WorkRequestDto;
 import com.example.saessak.dto.WorkResponseDto;
-import com.example.saessak.entity.Farm;
-import com.example.saessak.entity.Resume;
-import com.example.saessak.entity.Work;
+import com.example.saessak.entity.*;
+import com.example.saessak.repository.UserWorkRepository;
 import com.example.saessak.repository.WorkRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 public class WorkService {
 
     private final WorkRepository workRepository;
+
+    private final UserWorkRepository userWorkRepository;
 
     // 일자리 공고 생성(농장주)
     @Transactional
@@ -41,16 +43,29 @@ public class WorkService {
 
     // 전체 일자리 공고 보기(노동자)
     @Transactional(readOnly = true)
-    public List<WorkResponseDto> findAll() {
+    public List<WorkResponseDto> findAll(Long userId) {
         System.out.println("------ 전체 일자리 공고 보기(노동자) ------");
-        List<Work> entity = workRepository.findAll();
-        return entity.stream().map(work -> new WorkResponseDto(work, work.getFarm())).collect(Collectors.toList());
+        List<UserWork> bookmark = userWorkRepository.findAllByUserUserId(userId);
+        List<Work> allWorks = workRepository.findAll();
+
+        List<WorkResponseDto> workResponseDtos = allWorks.stream().map(work -> {
+                    WorkResponseDto workDto = new WorkResponseDto(work, work.getFarm());
+                    if (bookmark.stream().anyMatch(userWork -> userWork.getWork().getWorkId()== (work.getWorkId()))) {
+                        workDto.setBookmark(true);
+                    }
+                    return workDto;
+                })
+                .collect(Collectors.toList());
+
+        return workResponseDtos;
     }
     
     // 전체 일자리 공고 보기(노동자) 필터:지역
     @Transactional(readOnly = true)
-    public List<WorkResponseDto> findAllByFarmAddressContaining(String address) {
+    public List<WorkResponseDto> findAllByFarmAddressContaining(String address, Long userId) {
         System.out.println("------ 전체 일자리 공고 보기(노동자) 필터:지역 ------");
+        List<UserWork> bookmark = userWorkRepository.findAllByUserUserId(userId);
+
         List<Work> entity = new ArrayList<>();
 
         if(address.contains("전체")){
@@ -68,13 +83,23 @@ public class WorkService {
             List<Work> works = workRepository.findAllByFarmAddressContaining(address.trim());
             entity.addAll(works);
         }
-        return entity.stream().map(work -> new WorkResponseDto(work, work.getFarm())).collect(Collectors.toList());
+        return entity.stream()
+                .map(work -> {
+                    WorkResponseDto workDto = new WorkResponseDto(work, work.getFarm());
+                    if (bookmark.stream().anyMatch(userWork -> userWork.getWork().getWorkId() == work.getWorkId())) {
+                        workDto.setBookmark(true);
+                    }
+                    return workDto;
+                })
+                .collect(Collectors.toList());
     }
 
     // 전체 일자리 공고 보기(노동자) 필터:농업구분
     @Transactional(readOnly = true)
-    public List<WorkResponseDto> findAllByFarmAgricultureContaining(String agriculture) {
+    public List<WorkResponseDto> findAllByFarmAgricultureContaining(String agriculture, Long userId) {
         System.out.println("------ 전체 일자리 공고 보기(노동자) 필터:농업구분 ------");
+
+        List<UserWork> bookmark = userWorkRepository.findAllByUserUserId(userId);
         List<Work> entity = new ArrayList<>();
 
         if(agriculture.contains("전체")){
@@ -92,13 +117,23 @@ public class WorkService {
             List<Work> works = workRepository.findAllByFarmAgricultureContaining(agriculture.trim());
             entity.addAll(works);
         }
-        return entity.stream().map(work -> new WorkResponseDto(work, work.getFarm())).collect(Collectors.toList());
+        return entity.stream()
+                .map(work -> {
+                    WorkResponseDto workDto = new WorkResponseDto(work, work.getFarm());
+                    if (bookmark.stream().anyMatch(userWork -> userWork.getWork().getWorkId() == work.getWorkId())) {
+                        workDto.setBookmark(true);
+                    }
+                    return workDto;
+                })
+                .collect(Collectors.toList());
     }
 
     // 전체 일자리 공고 보기(노동자) 필터:희망작목
     @Transactional(readOnly = true)
-    public List<WorkResponseDto> findAllByFarmCropsContaining(String crops) {
+    public List<WorkResponseDto> findAllByFarmCropsContaining(String crops, Long userId) {
         System.out.println("------ 전체 일자리 공고 보기(노동자) 필터:희망작목 ------");
+
+        List<UserWork> bookmark = userWorkRepository.findAllByUserUserId(userId);
         List<Work> entity = new ArrayList<>();
 
         if(crops.contains("전체")){
@@ -116,13 +151,23 @@ public class WorkService {
             List<Work> works = workRepository.findAllByFarmCropsContaining(crops.trim());
             entity.addAll(works);
         }
-        return entity.stream().map(work -> new WorkResponseDto(work, work.getFarm())).collect(Collectors.toList());
+        return entity.stream()
+                .map(work -> {
+                    WorkResponseDto workDto = new WorkResponseDto(work, work.getFarm());
+                    if (bookmark.stream().anyMatch(userWork -> userWork.getWork().getWorkId() == work.getWorkId())) {
+                        workDto.setBookmark(true);
+                    }
+                    return workDto;
+                })
+                .collect(Collectors.toList());
     }
 
     // 전체 일자리 공고 보기(노동자) 필터:경력
     @Transactional(readOnly = true)
-    public List<WorkResponseDto> findAllByCareer(float career) {
+    public List<WorkResponseDto> findAllByCareer(float career, Long userId) {
         System.out.println("------ 전체 일자리 공고 보기(노동자) 필터:경력 ------");
+
+        List<UserWork> bookmark = userWorkRepository.findAllByUserUserId(userId);
         List<Work> entity = new ArrayList<>();
 
         if (career == 99) {
@@ -137,7 +182,15 @@ public class WorkService {
             entity = workRepository.findAll().stream().filter(work -> work.getCareer() >= 5).collect(Collectors.toList());
         }
 
-        return entity.stream().map(work -> new WorkResponseDto(work, work.getFarm())).collect(Collectors.toList());
+        return entity.stream()
+                .map(work -> {
+                    WorkResponseDto workDto = new WorkResponseDto(work, work.getFarm());
+                    if (bookmark.stream().anyMatch(userWork -> userWork.getWork().getWorkId() == work.getWorkId())) {
+                        workDto.setBookmark(true);
+                    }
+                    return workDto;
+                })
+                .collect(Collectors.toList());
     }
 
     // 해당 일자리 공고 보기(노동자)

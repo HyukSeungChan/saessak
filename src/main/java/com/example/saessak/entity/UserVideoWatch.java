@@ -15,15 +15,15 @@ import javax.persistence.*;
 public class UserVideoWatch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_video_id")
-    // 유저-일자리ID
-    private int userVideoId;
+    @Column(name = "user_video_watch_id")
+    // 유저-비디오ID
+    private int userVideoWatchId;
 
     @Column(name = "user_id")
     // 유저ID
-    private int userId;
+    private Long userId;
 
     @Column(name = "video_id")
-    // 일자리ID
+    // 비디오ID
     private int videoId;
 }

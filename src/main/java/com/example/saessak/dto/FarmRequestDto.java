@@ -15,6 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FarmRequestDto {
+
+    private int farmId;
     private String name;
     private String address;
     private String farmImage;
@@ -31,6 +33,7 @@ public class FarmRequestDto {
         User user = User.builder().userId(userId).build();
 
         return Farm.builder()
+                .farmId(farmId)
                 .name(name)
                 .address(address)
                 .farmImage(farmImage)

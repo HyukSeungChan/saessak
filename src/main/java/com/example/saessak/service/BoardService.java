@@ -2,9 +2,6 @@ package com.example.saessak.service;
 
 import com.example.saessak.dto.*;
 import com.example.saessak.entity.Board;
-import com.example.saessak.entity.Farm;
-import com.example.saessak.entity.Resume;
-import com.example.saessak.entity.UserWork;
 import com.example.saessak.repository.BoardRepository;
 import com.example.saessak.repository.FarmRepository;
 import com.example.saessak.repository.WorkerRepository;
@@ -24,12 +21,14 @@ public class BoardService {
 
     private final FarmRepository farmRepository;
 
-    // 글 생성 사진 있을 때
+    // 글 생성
     @Transactional
     public Board save(BoardRequestDto boardRequestDto, String fileUrl){
         System.out.println("------ 글 생성 ------");
         if (fileUrl != null) {
             fileUrl = fileUrl.replace("[", "").replace("]", "");
+        } else {
+            fileUrl = null;
         }
         boardRequestDto.setImage(fileUrl);
         boardRequestDto.setLikes(0);
@@ -37,14 +36,14 @@ public class BoardService {
         return boardRepository.save(boardRequestDto.toEntity(workerRepository, farmRepository));
     }
 
-    // 글 생성 사진 없을 때
-    @Transactional
-    public Board save(BoardRequestDto boardRequestDto){
-        System.out.println("------ 글 생성 ------");
-        boardRequestDto.setLikes(0);
-        boardRequestDto.setReplies(0);
-        return boardRepository.save(boardRequestDto.toEntity(workerRepository, farmRepository));
-    }
+//    // 글 생성 사진 없을 때
+//    @Transactional
+//    public Board save(BoardRequestImageDto boardRequestDto){
+//        System.out.println("------ 글 생성 ------");
+//        boardRequestDto.setLikes(0);
+//        boardRequestDto.setReplies(0);
+//        return boardRepository.save(boardRequestDto.toEntity(workerRepository, farmRepository));
+//    }
 
     // 농촌 이야기 게시글 리스트 조회
     @Transactional(readOnly = true)
@@ -99,4 +98,13 @@ public class BoardService {
         List<Board> entity = boardRepository.findAllByOrderByLikesDesc();
         return entity.stream().limit(2).map(BoardResponseDto::new).collect(Collectors.toList());
     }
+
+    // 도와줘요 필터링
+    @Transactional(readOnly = true)
+    public List<BoardResponseDto> findAllByAgricultureIsNotNullAndCropsContaining(String crops) {
+        System.out.println("------ 실시간 인기글 ------");
+        List<Board> entity = boardRepository.findAllByAgricultureIsNotNullAndCropsContaining(crops);
+        return entity.stream().map(BoardResponseDto::new).collect(Collectors.toList());
+    }
+
 }

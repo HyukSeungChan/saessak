@@ -4,16 +4,15 @@ import com.example.saessak.dto.BoardResponseDto;
 import com.example.saessak.dto.FarmRequestDto;
 import com.example.saessak.dto.VideoRequestDto;
 import com.example.saessak.dto.VideoResponseDto;
-import com.example.saessak.entity.Board;
-import com.example.saessak.entity.Farm;
-import com.example.saessak.entity.UserVideo;
-import com.example.saessak.entity.Video;
+import com.example.saessak.entity.*;
 import com.example.saessak.repository.UserVideoRepository;
+import com.example.saessak.repository.UserVideoWatchRepository;
 import com.example.saessak.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +21,8 @@ import java.util.stream.Collectors;
 public class VideoService {
 
     private final VideoRepository videoRepository;
+    private final UserVideoWatchRepository userVideoWatchRepository;
+
     private final UserVideoRepository userVideoRepository;
 
     // 영상 생성
@@ -54,6 +55,34 @@ public class VideoService {
 //        UserVideo userVideo = UserVideo.builder().userId(userId).videoId(videoId).build();
 //        userVideoRepository.save(userVideo);
         return 1;
+    }
+
+    // 미시청 영상 보여주기
+
+
+    // 시청 영상 보여주기
+    @Transactional(readOnly = true)
+    public List<VideoResponseDto> watchList(Long userId) {
+        System.out.println("------ 시청 영상 보여주기 ------");
+        List<UserVideoWatch> watched = userVideoWatchRepository.findAllByUserId(userId);
+        List<UserVideo> bookmark = userVideoRepository.findAllByUserUserId(userId);
+        List<Integer> watchedVideoIds = watched.stream().map(UserVideoWatch::getVideoId).collect(Collectors.toList());
+
+        List<Video> allVideos = videoRepository.findAll();
+
+        List<VideoResponseDto> videoResponseDtos = allVideos.stream().map(video -> {
+            VideoResponseDto videoDto = new VideoResponseDto(video);
+                    if (watchedVideoIds.contains(video.getVideoId())) {
+                        videoDto.setWatching(true);
+                    }
+                    if (bookmark.stream().anyMatch(userVideo -> userVideo.getVideo().getVideoId()== (video.getVideoId()))) {
+                        videoDto.setBookmark(true);
+                    }
+                    return videoDto;
+                })
+                .collect(Collectors.toList());
+
+        return videoResponseDtos;
     }
 
 }

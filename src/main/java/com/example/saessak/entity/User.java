@@ -40,7 +40,7 @@ public class User {
 
     @ColumnDefault("0")
     @Column(name = "complete")
-    // 유저타입
+    // 시청한 영상 수
     private int complete;
 
 

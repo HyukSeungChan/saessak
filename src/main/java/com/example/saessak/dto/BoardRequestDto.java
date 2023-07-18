@@ -17,15 +17,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardRequestDto {
+
+    private int boardId;
+
     private String title;
 
     private String content;
 
-    private String image;
-
     private String uploadTime;
 
     private String area;
+
+    private String image;
 
     private int likes;
 
@@ -33,6 +36,7 @@ public class BoardRequestDto {
 
     private String agriculture;
 
+    private String crops;
     private Long userId;
 
     public Board toEntity(WorkerRepository workerRepository, FarmRepository farmRepository) {
@@ -49,14 +53,16 @@ public class BoardRequestDto {
         }
 
         return Board.builder()
+                .boardId(boardId)
                 .title(title)
                 .content(content)
-                .image(image)
                 .uploadTime(uploadTime)
                 .area(areaValue)
+                .image(image)
                 .likes(likes)
                 .replies(replies)
                 .agriculture(agriculture)
+                .crops(crops)
                 .user(user)
                 .build();
     }

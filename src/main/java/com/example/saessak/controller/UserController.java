@@ -9,8 +9,6 @@ import com.example.saessak.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -45,8 +43,8 @@ public class UserController {
 //            return ResponseEntity.ok(user);
             System.out.println("find user !!");
 
-            JSONObject jsonObject = new JSONObject();
-            JSONParser parser = new JSONParser();
+//            JSONObject jsonObject = new JSONObject();
+//            JSONParser parser = new JSONParser();
 
             ObjectMapper mapper = new ObjectMapper();
 

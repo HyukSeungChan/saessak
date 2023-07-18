@@ -59,6 +59,8 @@ public class WorkResponseDto {
     private String introduction;
     private String cropsDetail;
 
+    private boolean bookmark;
+
     public WorkResponseDto(Work work, Farm farm) {
         this.workId = work.getWorkId();
         this.farmId = work.getFarm().getFarmId();

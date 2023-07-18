@@ -32,6 +32,10 @@ public class AmazonS3Service {
     public List<String> upload(List<MultipartFile> multipartFiles) throws IOException {
         List<String> fileNameList = new ArrayList<>();
 
+        if (multipartFiles == null || multipartFiles.isEmpty()) {
+            System.out.println("image null!!");
+            return null;
+        }
 
         // forEach 구문을 통해 multipartFile로 넘어온 파일들 하나씩 fileNameList에 추가
         multipartFiles.forEach(file -> {
@@ -56,6 +60,11 @@ public class AmazonS3Service {
     }
 
     public String upload(MultipartFile multipartFile) throws IOException {
+
+        if (multipartFile == null || multipartFile.isEmpty()) {
+            System.out.println("image null!!");
+            return "null";
+        }
 
         // forEach 구문을 통해 multipartFile로 넘어온 파일들 하나씩 fileNameList에 추가
 

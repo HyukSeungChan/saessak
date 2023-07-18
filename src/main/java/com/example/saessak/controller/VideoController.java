@@ -6,7 +6,9 @@ import com.example.saessak.dto.VideoRequestDto;
 import com.example.saessak.dto.VideoResponseDto;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.AmazonS3Service;
+import com.example.saessak.service.UserVideoWatchService;
 import com.example.saessak.service.VideoService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +25,7 @@ public class VideoController {
 
     private final VideoService videoService;
 
+    private final UserVideoWatchService userVideoWatchService;
     private final AmazonS3Service amazonS3Service;
 
     // 영상 생성
@@ -39,10 +42,11 @@ public class VideoController {
         try {
 //            ResponseEntity.notFound();
             List<VideoResponseDto> video = videoService.findAllByType(type);
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find video !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", video));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", mapper.writeValueAsString(video)));
+        } catch (Exception e) {
             System.out.println("not video !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get video", null));
         }
@@ -55,21 +59,33 @@ public class VideoController {
         try {
             ResponseEntity.notFound();
             VideoResponseDto video = videoService.findById(videoId);
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find video !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", video));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", mapper.writeValueAsString(video)));
+        } catch (Exception e) {
             System.out.println("not video !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get video", null));
         }
     }
 
 
+    // 영상 보여주기
     @GetMapping("/video/watching")
-    public ResponseEntity<ApiResponse> watchingVideo(@RequestParam("videoId") int videoId, @RequestParam("userId") int userId) {
+    public ResponseEntity<ApiResponse> watchList(@RequestParam("userId") Long userId) {
         System.out.println("해당 영상 조회 !!");
-
-        videoService.saveWatch(videoId, userId);
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", "true"));
+        try {
+            ResponseEntity.notFound();
+            List<VideoResponseDto> video = videoService.watchList(userId);
+            ObjectMapper mapper = new ObjectMapper();
+//            return ResponseEntity.ok(user);
+            System.out.println("find video !!");
+//            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", mapper.writeValueAsString(video)));
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", video));
+        } catch (Exception e) {
+            System.out.println("not video !!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get video", null));
+        }
     }
+
 }

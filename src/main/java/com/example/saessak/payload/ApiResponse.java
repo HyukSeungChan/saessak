@@ -2,8 +2,6 @@ package com.example.saessak.payload;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 public class ApiResponse {
     private String status;

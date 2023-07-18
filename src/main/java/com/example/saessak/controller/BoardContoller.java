@@ -27,11 +27,7 @@ public class BoardContoller {
     // 글 생성
     @PostMapping(value = "/board", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<BoardRequestDto> save(@RequestPart("boardRequestDto") BoardRequestDto boardRequestDto, @RequestPart(value = "file", required = false) MultipartFile multipartFile) throws IOException {
-        if (multipartFile != null && !multipartFile.isEmpty()) {
-            boardService.save(boardRequestDto, amazonS3Service.upload(multipartFile).toString());
-        } else {
-            boardService.save(boardRequestDto);
-        }
+        boardService.save(boardRequestDto, amazonS3Service.upload(multipartFile));
         return ResponseEntity.ok(boardRequestDto);
     }
 
@@ -42,10 +38,11 @@ public class BoardContoller {
         try {
             ResponseEntity.notFound();
             List<BoardResponseDto> board = boardService.findAllByAgricultureIsNull();
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find board story !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board story successfully", board));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board story successfully", mapper.writeValueAsString(board)));
+        } catch (Exception e) {
             System.out.println("not board story !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board story", null));
         }
@@ -58,10 +55,11 @@ public class BoardContoller {
         try {
             ResponseEntity.notFound();
             List<BoardResponseDto> board = boardService.findAllByAgricultureIsNotNull();
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find board help !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board help successfully", board));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board help successfully", mapper.writeValueAsString(board)));
+        } catch (Exception e) {
             System.out.println("not board help !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board help", null));
         }
@@ -74,10 +72,11 @@ public class BoardContoller {
         try {
             ResponseEntity.notFound();
             BoardResponseDto board = boardService.findByBoardId(boardId);
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find board info!!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board info successfully", board));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board info successfully", mapper.writeValueAsString(board)));
+        } catch (Exception e) {
             System.out.println("not board info!!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board info", null));
         }
@@ -113,6 +112,23 @@ public class BoardContoller {
             System.out.println("not board hot !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board hot", null));
 //            return "";
+        }
+    }
+
+    // 도와줘요 필터링
+    @GetMapping("board/help/crops")
+    public ResponseEntity<ApiResponse> findAllByAgricultureIsNotNullAndCropsContaining(@RequestParam("crops") String crops) {
+        System.out.println("도와줘요 필터링 조회 !!");
+        try {
+            ResponseEntity.notFound();
+            List<BoardResponseDto> board = boardService.findAllByAgricultureIsNotNullAndCropsContaining(crops);
+            ObjectMapper mapper = new ObjectMapper();
+//            return ResponseEntity.ok(user);
+            System.out.println("find board filter!!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board filter successfully", mapper.writeValueAsString(board)));
+        } catch (Exception e) {
+            System.out.println("not board filter!!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board filter", null));
         }
     }
 

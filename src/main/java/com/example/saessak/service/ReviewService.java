@@ -1,9 +1,7 @@
 package com.example.saessak.service;
 
-import com.example.saessak.dto.BoardRequestDto;
 import com.example.saessak.dto.ReviewRequestDto;
 import com.example.saessak.dto.ReviewResponseDto;
-import com.example.saessak.entity.Board;
 import com.example.saessak.entity.Review;
 import com.example.saessak.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;

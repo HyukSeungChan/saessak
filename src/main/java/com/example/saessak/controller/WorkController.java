@@ -1,6 +1,7 @@
 package com.example.saessak.controller;
 
 import com.example.saessak.dto.*;
+import com.example.saessak.entity.Board;
 import com.example.saessak.entity.Work;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.WorkService;
@@ -9,9 +10,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -44,15 +47,15 @@ public class WorkController {
 
     // 전체 일자리 공고 보기(노동자)
     @GetMapping("/work/worker/all")
-    public ResponseEntity<ApiResponse> findAll() {
+    public ResponseEntity<ApiResponse> findAll(@RequestParam("userId") Long userId) {
         System.out.println("전체 일자리 공고 보기(노동자) 입장!!");
         try {
             ResponseEntity.notFound();
-            List<WorkResponseDto> work = workService.findAll();
+            List<WorkResponseDto> work = workService.findAll(userId);
             ObjectMapper mapper = new ObjectMapper();
             System.out.println("find work !!");
 
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created", "get work successfully", mapper.writeValueAsString(work)));
         } catch (Exception e) {
             System.out.println("not work !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found work", null));
@@ -61,11 +64,11 @@ public class WorkController {
 
     // 전체 일자리 공고 보기(노동자) 필터:지역
     @GetMapping("/work/worker/address")
-    public ResponseEntity<ApiResponse> findAllByFarmAddressContaining(@RequestParam ("address") String address) {
+    public ResponseEntity<ApiResponse> findAllByFarmAddressContaining(@RequestParam ("address") String address, @RequestParam("userId") Long userId) {
         System.out.println("전체 일자리 공고 보기(노동자) 필터:지역 입장!!");
         try {
             ResponseEntity.notFound();
-            List<WorkResponseDto> work = workService.findAllByFarmAddressContaining(address);
+            List<WorkResponseDto> work = workService.findAllByFarmAddressContaining(address, userId);
             ObjectMapper mapper = new ObjectMapper();
             System.out.println("find work !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
@@ -77,11 +80,11 @@ public class WorkController {
 
     // 전체 일자리 공고 보기(노동자) 필터:농업구분
     @GetMapping("/work/worker/agriculture")
-    public ResponseEntity<ApiResponse> findAllByFarmAgricultureContaining(@RequestParam("agriculture") String agriculture) {
+    public ResponseEntity<ApiResponse> findAllByFarmAgricultureContaining(@RequestParam("agriculture") String agriculture, @RequestParam("userId") Long userId) {
         System.out.println("전체 일자리 공고 보기(노동자) 필터:농업구분");
         try {
             ResponseEntity.notFound();
-            List<WorkResponseDto> work = workService.findAllByFarmAgricultureContaining(agriculture);
+            List<WorkResponseDto> work = workService.findAllByFarmAgricultureContaining(agriculture, userId);
             ObjectMapper mapper = new ObjectMapper();
             System.out.println("find work !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
@@ -93,11 +96,11 @@ public class WorkController {
 
     // 전체 일자리 공고 보기(노동자) 필터:희망작목
     @GetMapping("/work/worker/crops")
-    public ResponseEntity<ApiResponse> findAllByFarmCrops(@RequestParam("crops") String crops) {
+    public ResponseEntity<ApiResponse> findAllByFarmCrops(@RequestParam("crops") String crops, @RequestParam("userId") Long userId) {
         System.out.println("전체 일자리 공고 보기(노동자) 필터:희망작목");
         try {
             ResponseEntity.notFound();
-            List<WorkResponseDto> work = workService.findAllByFarmCropsContaining(crops);
+            List<WorkResponseDto> work = workService.findAllByFarmCropsContaining(crops, userId);
             ObjectMapper mapper = new ObjectMapper();
             System.out.println("find work !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
@@ -109,11 +112,11 @@ public class WorkController {
 
     // 전체 일자리 공고 보기(노동자) 필터:경력
     @GetMapping("/work/worker/career")
-    public ResponseEntity<ApiResponse> findAllByCareerContaining(@RequestParam("career") float career) {
+    public ResponseEntity<ApiResponse> findAllByCareerContaining(@RequestParam("career") float career, @RequestParam("userId") Long userId) {
         System.out.println("전체 일자리 공고 보기(노동자) 필터:경력");
         try {
             ResponseEntity.notFound();
-            List<WorkResponseDto> work = workService.findAllByCareer(career);
+            List<WorkResponseDto> work = workService.findAllByCareer(career, userId);
             ObjectMapper mapper = new ObjectMapper();
             System.out.println("find work !!");
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
@@ -173,4 +176,5 @@ public class WorkController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found work", null));
         }
     }
+
 }

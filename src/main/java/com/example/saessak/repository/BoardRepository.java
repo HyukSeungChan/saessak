@@ -31,4 +31,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     // 실시간 인기글
     List<Board> findAllByOrderByLikesDesc();
+
+    // 도와줘요 필터링
+    List<Board> findAllByAgricultureIsNotNullAndCropsContaining(String crops);
 }

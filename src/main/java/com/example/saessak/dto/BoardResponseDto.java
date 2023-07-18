@@ -30,6 +30,8 @@ public class BoardResponseDto {
 
     private String agriculture;
 
+    private String crops;
+
     private Long userId;
 
     // 유저 정보
@@ -46,6 +48,7 @@ public class BoardResponseDto {
         this.likes = board.getLikes();
         this.replies = board.getReplies();
         this.agriculture = board.getAgriculture();
+        this.crops = board.getCrops();
         this.userId = board.getUser().getUserId();
 
         // 유저 정보

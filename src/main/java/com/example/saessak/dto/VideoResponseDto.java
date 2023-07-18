@@ -28,6 +28,8 @@ public class VideoResponseDto {
 
     private boolean watching;
 
+    private boolean bookmark;
+
     public VideoResponseDto(Video video) {
         this.videoId = video.getVideoId();
         this.title = video.getTitle();
