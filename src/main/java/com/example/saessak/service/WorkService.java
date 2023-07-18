@@ -1,6 +1,5 @@
 package com.example.saessak.service;
 
-import com.example.saessak.dto.WorkListResponseDto;
 import com.example.saessak.dto.WorkRecommendResponseDto;
 import com.example.saessak.dto.WorkRequestDto;
 import com.example.saessak.dto.WorkResponseDto;
@@ -42,10 +41,10 @@ public class WorkService {
 
     // 전체 일자리 공고 보기(노동자)
     @Transactional(readOnly = true)
-    public List<WorkListResponseDto> findAll() {
+    public List<WorkResponseDto> findAll() {
         System.out.println("------ 전체 일자리 공고 보기(노동자) ------");
         List<Work> entity = workRepository.findAll();
-        return entity.stream().map(work -> new WorkListResponseDto(work, work.getFarm())).collect(Collectors.toList());
+        return entity.stream().map(work -> new WorkResponseDto(work, work.getFarm())).collect(Collectors.toList());
     }
     
     // 전체 일자리 공고 보기(노동자) 필터:지역
@@ -53,6 +52,11 @@ public class WorkService {
     public List<WorkResponseDto> findAllByFarmAddressContaining(String address) {
         System.out.println("------ 전체 일자리 공고 보기(노동자) 필터:지역 ------");
         List<Work> entity = new ArrayList<>();
+
+        if(address.contains("전체")){
+            List<Work> works = workRepository.findAll();
+            entity.addAll(works);
+        }
 
         if (address.contains(",")) {
             List<String> addressList = Arrays.asList(address.split(","));
@@ -73,6 +77,11 @@ public class WorkService {
         System.out.println("------ 전체 일자리 공고 보기(노동자) 필터:농업구분 ------");
         List<Work> entity = new ArrayList<>();
 
+        if(agriculture.contains("전체")){
+            List<Work> works = workRepository.findAll();
+            entity.addAll(works);
+        }
+
         if (agriculture.contains(",")) {
             List<String> agriList = Arrays.asList(agriculture.split(","));
             for (String agri : agriList) {
@@ -91,6 +100,11 @@ public class WorkService {
     public List<WorkResponseDto> findAllByFarmCropsContaining(String crops) {
         System.out.println("------ 전체 일자리 공고 보기(노동자) 필터:희망작목 ------");
         List<Work> entity = new ArrayList<>();
+
+        if(crops.contains("전체")){
+            List<Work> works = workRepository.findAll();
+            entity.addAll(works);
+        }
 
         if (crops.contains(",")) {
             List<String> cropsList = Arrays.asList(crops.split(","));
@@ -168,6 +182,10 @@ public class WorkService {
             entity = entity.stream()
                     .filter(work -> containsAnyItem(cropsList, work.getFarm().getCrops()))
                     .collect(Collectors.toList());
+        }
+
+        if (entity.isEmpty()) {
+            entity = workRepository.findAll();
         }
 
         return entity.stream()
