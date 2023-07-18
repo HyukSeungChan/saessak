@@ -9,4 +9,7 @@ public interface UserWorkRepository extends JpaRepository<UserWork, Integer> {
 
     // 유저-일자리 즐겨찾기 조회
     List<UserWork> findAllByUserUserId(Long userId);
+
+    // 유저-일자리 즐겨찾기 삭제
+    void deleteByUserUserIdAndWorkWorkId(Long userId, int workId);
 }

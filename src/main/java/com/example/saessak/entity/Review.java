@@ -44,7 +44,4 @@ public class Review {
     // 농장ID
     private Farm farm;
 
-    @OneToMany(mappedBy = "review")
-    // mapping
-    private List<ReviewFarm> reviewFarms = new ArrayList<>();
 }

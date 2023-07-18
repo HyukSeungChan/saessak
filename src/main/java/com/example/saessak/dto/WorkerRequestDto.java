@@ -14,6 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkerRequestDto {
+
+    private int workerId;
     private String certificate;
     private String area;
     private String agriculture;
@@ -28,6 +30,7 @@ public class WorkerRequestDto {
         User user = User.builder().userId(userId).build();
 
         return Worker.builder()
+                .workerId(workerId)
                 .certificate(certificate)
                 .area(area)
                 .agriculture(agriculture)

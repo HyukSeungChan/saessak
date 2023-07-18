@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkRequestDto {
+
+    private int workId;
     private int farmId;
     private String title;
     private String content;
@@ -42,6 +44,7 @@ public class WorkRequestDto {
         Farm farm = Farm.builder().farmId(farmId).build();
 
         return Work.builder()
+                .workId(workId)
                 .farm(farm)
                 .title(title)
                 .content(content)

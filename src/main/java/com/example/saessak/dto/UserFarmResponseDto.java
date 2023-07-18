@@ -3,7 +3,6 @@ package com.example.saessak.dto;
 import com.example.saessak.entity.Farm;
 import com.example.saessak.entity.User;
 import com.example.saessak.entity.UserFarm;
-import com.example.saessak.entity.UserTodo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

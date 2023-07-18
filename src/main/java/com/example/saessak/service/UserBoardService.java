@@ -3,7 +3,6 @@ package com.example.saessak.service;
 
 import com.example.saessak.dto.UserBoardRequestDto;
 import com.example.saessak.dto.UserBoardResponseDto;
-import com.example.saessak.dto.UserTodoResponseDto;
 import com.example.saessak.dto.UserWorkResponseDto;
 import com.example.saessak.entity.UserBoard;
 import com.example.saessak.entity.UserWork;
@@ -34,6 +33,14 @@ public class UserBoardService {
         System.out.println("------ 유저-글 즐겨찾기 조회 ------");
         List<UserBoard> entity = userBoardRepository.findAllByUserUserId(userId);
         return entity.stream().map(UserBoardResponseDto::new).collect(Collectors.toList());
+    }
+
+    // 유저-글 즐겨찾기 삭제
+    @Transactional
+    public int deleteByUserUserIdAndBoardBoardId(Long userId, int boardId) {
+        System.out.println("------ 유저-글 즐겨찾기 삭제 ------");
+        userBoardRepository.deleteByUserUserIdAndBoardBoardId(userId, boardId);
+        return 1;
     }
 
 }

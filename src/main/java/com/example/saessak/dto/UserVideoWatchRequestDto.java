@@ -14,11 +14,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserVideoWatchRequestDto {
+
+    private int userVideoWatchId;
     private Long userId;
     private int videoId;
 
     public UserVideoWatch toEntity() {
         return UserVideoWatch.builder()
+                .userVideoWatchId(userVideoWatchId)
                 .userId(userId)
                 .videoId(videoId)
                 .build();

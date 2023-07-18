@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserVideoRequestDto {
+
+    private int userVideoId;
     private Long userId;
     private int videoId;
 
@@ -19,6 +21,7 @@ public class UserVideoRequestDto {
         User user = User.builder().userId(userId).build();
 
         return UserVideo.builder()
+                .userVideoId(userVideoId)
                 .video(video)
                 .user(user)
                 .build();

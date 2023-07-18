@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserFarmRequestDto {
 
+    private int userFarmId;
 
     private String dateStart;
 
@@ -27,6 +28,7 @@ public class UserFarmRequestDto {
         Farm farm = Farm.builder().farmId(farmId).build();
 
         return UserFarm.builder()
+                .userFarmId(userFarmId)
                 .user(user)
                 .farm(farm)
                 .build();

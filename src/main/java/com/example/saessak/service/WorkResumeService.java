@@ -42,6 +42,14 @@ public class WorkResumeService {
         return entity.stream().map(WorkResumeResponseDto::new).collect(Collectors.toList());
     }
 
+    // 지원취소 (도시농부)
+    @Transactional
+    public WorkResumeResponseDto applyCancel(int workResumeId) {
+        WorkResume entity = workResumeRepository.findByWorkResumeId(workResumeId);
+        entity.setState("지원취소");
+        return new WorkResumeResponseDto(entity);
+    }
+
     // 접수된 이력서 리스트 조회(농장주)
     @Transactional(readOnly = true)
     public List<WorkResumeResponseDto>  findAllByWorkFarmUserUserId(Long userId) {

@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReplyRequestDto {
 
+    private int replyId;
+
     private String content;
     private String uploadTime;
 
@@ -38,6 +40,7 @@ public class ReplyRequestDto {
 
         // 지역을 보내야하나?? 고민해보기.
         return Reply.builder()
+                .replyId(replyId)
                 .content(content)
                 .uploadTime(uploadTime)
                 .area(areaValue)

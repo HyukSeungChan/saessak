@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserBoardRequestDto {
+
+    private int userBoardId;
     private Long userId;
     private int boardId;
 
@@ -19,6 +21,7 @@ public class UserBoardRequestDto {
         User user = User.builder().userId(userId).build();
 
         return UserBoard.builder()
+                .userBoardId(userBoardId)
                 .board(board)
                 .user(user)
                 .build();

@@ -32,4 +32,12 @@ public class UserPolicyService {
         List<UserPolicy> entity = userPolicyRepository.findAllByUserUserId(userId);
         return entity.stream().map(UserPolicyResponseDto::new).collect(Collectors.toList());
     }
+
+    // 유저-지원정책 즐겨찾기 삭제
+    @Transactional
+    public int deleteByUserUserIdAndPolicyPolicyId(Long userId, int policyId) {
+        userPolicyRepository.deleteByUserUserIdAndPolicyPolicyId(userId, policyId);
+        return 1;
+    }
+
 }

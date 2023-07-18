@@ -1,19 +1,15 @@
 package com.example.saessak.controller;
 
 import com.example.saessak.dto.UserTodoFarmResponseDto;
-import com.example.saessak.dto.UserTodoResponseDto;
-import com.example.saessak.entity.UserTodo;
+
 import com.example.saessak.entity.UserTodoFarm;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.UserTodoFarmService;
-import com.example.saessak.service.UserTodoService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,10 +32,12 @@ public class UserTodoFarmController {
         try {
             ResponseEntity.notFound();
             List<UserTodoFarmResponseDto> userTodoFarm = userTodoFarmService.findAllByUserUserIdAndFarmFarmIdAndTodoDate(userId, farmId, date);
+
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find user todo !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user todo successfully", userTodoFarm));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user todo successfully", mapper.writeValueAsString(userTodoFarm)));
+        } catch (Exception e) {
             System.out.println("not user todo !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user todo", null));
         }
@@ -52,10 +50,12 @@ public class UserTodoFarmController {
         try {
             ResponseEntity.notFound();
             List<UserTodoFarmResponseDto> userTodoFarm = userTodoFarmService.findAllByUserUserIdAndFarmFarmId(userId, farmId);
+
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find user todo !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user todo successfully", userTodoFarm));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user todo successfully", mapper.writeValueAsString(userTodoFarm)));
+        } catch (Exception e) {
             System.out.println("not user todo !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user todo", null));
         }
@@ -68,13 +68,21 @@ public class UserTodoFarmController {
         try {
             ResponseEntity.notFound();
             List<UserTodoFarmResponseDto> userTodoFarm = userTodoFarmService.findAllByFarmFarmIdAndTodoDate(farmId, date);
+
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find farm todo !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get farm todo successfully", userTodoFarm));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get farm todo successfully", mapper.writeValueAsString(userTodoFarm)));
+        } catch (Exception e) {
             System.out.println("not farm todo !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found farm todo", null));
         }
+    }
+
+    // 할 일 삭제(농장주)
+    @DeleteMapping("/todo/delete")
+    public int deleteByTodoId(@RequestParam("todoId") int todoId) {
+        return userTodoFarmService.deleteByTodoId(todoId);
     }
 
 }

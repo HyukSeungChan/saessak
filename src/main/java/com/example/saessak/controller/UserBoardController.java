@@ -8,6 +8,7 @@ import com.example.saessak.dto.UserWorkResponseDto;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.UserBoardService;
 import com.example.saessak.service.UserWorkService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +36,20 @@ public class UserBoardController {
         try {
             ResponseEntity.notFound();
             List<UserBoardResponseDto> userBoard = userBoardService.findAllByUserUserId(userId);
+
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find user board !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user board successfully", userBoard));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user board successfully", mapper.writeValueAsString(userBoard)));
+        } catch (Exception e) {
             System.out.println("not user board !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user board", null));
         }
+    }
+
+    // 유저-글 즐겨찾기 삭제
+    @DeleteMapping("/user/board/bookmark/delete")
+    public int deleteByUserUserIdAndBoardBoardId(@RequestParam("userId") Long userId, @RequestParam("boardId") int boardId) {
+        return userBoardService.deleteByUserUserIdAndBoardBoardId(userId, boardId);
     }
 }

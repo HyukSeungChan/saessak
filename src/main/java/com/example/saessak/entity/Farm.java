@@ -65,14 +65,6 @@ public class Farm {
 
     @OneToMany(mappedBy = "farm")
     // mapping
-    private List<ReviewFarm> reviewFarms = new ArrayList<>();
-
-    @OneToMany(mappedBy = "farm")
-    // mapping
-    private List<TodoFarm> todoFarms = new ArrayList<>();
-
-    @OneToMany(mappedBy = "farm")
-    // mapping
     private List<UserFarm> userFarms = new ArrayList<>();
 
     @OneToMany(mappedBy = "farm")

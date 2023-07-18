@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkResumeRequestDto {
+
+    private int workResumeId;
     private int workId;
     private int resumeId;
     private String state;
@@ -22,6 +24,7 @@ public class WorkResumeRequestDto {
         Resume resume = Resume.builder().resumeId(resumeId).build();
 
         return WorkResume.builder()
+                .workResumeId(workResumeId)
                 .work(work)
                 .resume(resume)
                 .state(state)

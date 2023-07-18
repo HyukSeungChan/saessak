@@ -7,6 +7,7 @@ import com.example.saessak.dto.ResumeRequestDto;
 import com.example.saessak.entity.Reply;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.ReplyService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,10 +37,12 @@ public class ReplyController {
         try {
             ResponseEntity.notFound();
             List<ReplyResponseDto> reply = replyService.findAllByBoardBoardId(boardId);
+
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find reply !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get reply successfully", reply));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get reply successfully", mapper.writeValueAsString(reply)));
+        } catch (Exception e) {
             System.out.println("not reply !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get reply", null));
         }

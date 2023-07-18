@@ -5,6 +5,7 @@ import com.example.saessak.dto.PolicyResponseDto;
 import com.example.saessak.entity.Policy;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.PolicyService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,9 +35,11 @@ public class PolicyController {
         try {
             ResponseEntity.notFound();
             List<PolicyResponseDto> policy = policyService.findAllByType(type);
+            ObjectMapper mapper = new ObjectMapper();
+
             System.out.println("find policy !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get policy successfully", policy));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get policy successfully", mapper.writeValueAsString(policy)));
+        } catch (Exception e) {
             System.out.println("not policy !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found policy", null));
         }
@@ -49,9 +52,11 @@ public class PolicyController {
         try {
             ResponseEntity.notFound();
             PolicyResponseDto policy = policyService.findById(policyId);
+            ObjectMapper mapper = new ObjectMapper();
+
             System.out.println("find policy !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get policy successfully", policy));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get policy successfully", mapper.writeValueAsString(policy)));
+        } catch (Exception e) {
             System.out.println("not policy !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found policy", null));
         }

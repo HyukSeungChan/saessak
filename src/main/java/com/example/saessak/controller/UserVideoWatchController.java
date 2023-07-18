@@ -28,19 +28,4 @@ public class UserVideoWatchController {
         return ResponseEntity.ok(userVideoWatchRequestDto);
     }
 
-//    // 유저-글 즐겨찾기 조회
-//    @GetMapping("/user/video/bookmark")
-//    public ResponseEntity<ApiResponse> findAllByUserUserId(@RequestParam("userId") Long userId) {
-//        System.out.println("유저-비디오 즐겨찾기 조회 !!");
-//        try {
-//            ResponseEntity.notFound();
-//            List<UserVideoResponseDto> userVideo = userVideoService.findAllByUserUserId(userId);
-////            return ResponseEntity.ok(user);
-//            System.out.println("find user video !!");
-//            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user video successfully", userVideo));
-//        } catch (IllegalArgumentException e) {
-//            System.out.println("not user video !!");
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user video", null));
-//        }
-//    }
 }

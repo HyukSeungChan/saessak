@@ -5,6 +5,7 @@ import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.ResumeService;
 import com.example.saessak.service.WorkService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +33,12 @@ public class ResumeController {
         try {
             ResponseEntity.notFound();
             ResumeResponseDto resume = resumeService.findByUserUserId(userId);
+
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find resume!!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get resume successfully", resume));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get resume successfully", mapper.writeValueAsString(resume)));
+        } catch (Exception e) {
             System.out.println("not resume !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found resume", null));
         }
@@ -48,10 +51,12 @@ public class ResumeController {
         try {
             ResponseEntity.notFound();
             ResumeResponseDto resume = resumeService.workApply(userId);
+
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find resume!!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get resume successfully", resume));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get resume successfully", mapper.writeValueAsString(resume)));
+        } catch (Exception e) {
             System.out.println("not resume !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found resume", null));
         }

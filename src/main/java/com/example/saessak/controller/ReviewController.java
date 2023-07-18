@@ -5,6 +5,7 @@ import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.AmazonS3Service;
 import com.example.saessak.service.BoardService;
 import com.example.saessak.service.ReviewService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -41,10 +42,12 @@ public class ReviewController {
         try {
             ResponseEntity.notFound();
             List<ReviewResponseDto> review = reviewService.findAllByFarmFarmId(farmId);
+
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find review !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get review successfully", review));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get review successfully", mapper.writeValueAsString(review)));
+        } catch (Exception e) {
             System.out.println("not review !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get review", null));
         }

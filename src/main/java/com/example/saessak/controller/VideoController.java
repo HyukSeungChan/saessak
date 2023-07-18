@@ -80,8 +80,8 @@ public class VideoController {
             ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find video !!");
-//            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", mapper.writeValueAsString(video)));
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", video));
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", mapper.writeValueAsString(video)));
+//            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", video));
         } catch (Exception e) {
             System.out.println("not video !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get video", null));

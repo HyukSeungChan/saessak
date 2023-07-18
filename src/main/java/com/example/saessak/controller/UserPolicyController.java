@@ -6,6 +6,7 @@ import com.example.saessak.dto.UserPolicyResponseDto;
 import com.example.saessak.entity.UserPolicy;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.UserPolicyService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +36,20 @@ public class UserPolicyController {
         try {
             ResponseEntity.notFound();
             List<UserPolicyResponseDto> userPolicy = userPolicyService.findAllByUserUserId(userId);
+
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find user policy!!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user policy successfully", userPolicy));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user policy successfully", mapper.writeValueAsString(userPolicy)));
+        } catch (Exception e) {
             System.out.println("not user policy !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user policy", null));
         }
+    }
+
+    // 유저-지원정책 즐겨찾기 삭제
+    @DeleteMapping("/user/policy/bookmark/delete")
+    public int deleteByUserUserIdAndPolicyPolicyId(@RequestParam("userId") Long userId, @RequestParam("policyId") int policyId) {
+        return userPolicyService.deleteByUserUserIdAndPolicyPolicyId(userId, policyId);
     }
 }

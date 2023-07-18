@@ -37,4 +37,11 @@ public class UserVideoService {
         return entity.stream().map(UserVideoResponseDto::new).collect(Collectors.toList());
     }
 
+    // 유저-비디오 즐겨찾기 삭제
+    @Transactional
+    public int deleteByUserUserIdAndVideoVideoId(Long userId, int videoId) {
+        userVideoRepository.deleteByUserUserIdAndVideoVideoId(userId, videoId);
+        return 1;
+    }
+
 }

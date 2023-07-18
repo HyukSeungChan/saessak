@@ -10,4 +10,6 @@ public interface UserBoardRepository extends JpaRepository<UserBoard, Integer> {
 
     // 유저-글 즐겨찾기 리스트 조회
     List<UserBoard> findAllByUserUserId(Long userId);
+
+    void deleteByUserUserIdAndBoardBoardId(Long userId, int boardId);
 }

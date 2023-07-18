@@ -4,6 +4,7 @@ package com.example.saessak.controller;
 import com.example.saessak.dto.*;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.WorkResumeService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +33,28 @@ public class WorkResumeController {
         try {
             ResponseEntity.notFound();
             List<WorkResumeResponseDto> workResume = workResumeService.findAllByResumeUserUserId(userId);
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find work resume worker !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work resume worker successfully", workResume));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work resume worker successfully", mapper.writeValueAsString(workResume)));
+        } catch (Exception e) {
+            System.out.println("not work resume worker !!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found work resume worker", null));
+        }
+    }
+
+    // 지원취소 (도시농부)
+    @GetMapping("work/resume/worker/delete")
+    public ResponseEntity<ApiResponse> applyCancel(@RequestParam("workResumeId") int workResumeId) {
+        System.out.println("지원취소 (도시농부)!!");
+        try {
+            ResponseEntity.notFound();
+            WorkResumeResponseDto workResume = workResumeService.applyCancel(workResumeId);
+            ObjectMapper mapper = new ObjectMapper();
+//            return ResponseEntity.ok(user);
+            System.out.println("find work resume worker !!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work resume worker successfully", mapper.writeValueAsString(workResume)));
+        } catch (Exception e) {
             System.out.println("not work resume worker !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found work resume worker", null));
         }
@@ -48,10 +67,11 @@ public class WorkResumeController {
         try {
             ResponseEntity.notFound();
             List<WorkResumeResponseDto> workResume = workResumeService.findAllByWorkFarmUserUserId(userId);
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find work resume worker !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work resume worker successfully", workResume));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work resume worker successfully", mapper.writeValueAsString(workResume)));
+        } catch (Exception e) {
             System.out.println("not work resume worker !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found work resume worker", null));
         }
@@ -64,10 +84,11 @@ public class WorkResumeController {
         try {
             ResponseEntity.notFound();
             WorkResumeResponseDto workResume = workResumeService.findByWorkResumeId(workResumeId);
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find work resume worker !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work resume worker successfully", workResume));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work resume worker successfully", mapper.writeValueAsString(workResume)));
+        } catch (Exception e) {
             System.out.println("not work resume worker !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found work resume worker", null));
         }
@@ -80,14 +101,18 @@ public class WorkResumeController {
         try {
             ResponseEntity.notFound();
             WorkResumeResponseDto workResume = workResumeService.updateState(workResumeId);
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find work resume worker !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work resume worker successfully", workResume));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work resume worker successfully", mapper.writeValueAsString(workResume)));
+        } catch (Exception e) {
             System.out.println("not work resume worker !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found work resume worker", null));
         }
     }
+
+
+    // 이력서 관련 상태값 변경
 
 
 }

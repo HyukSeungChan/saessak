@@ -1,14 +1,10 @@
 package com.example.saessak.service;
 
-import com.example.saessak.dto.TodoFarmRequestDto;
-import com.example.saessak.dto.TodoFarmResponseDto;
 import com.example.saessak.dto.UserTodoFarmRequestDto;
 import com.example.saessak.dto.UserTodoFarmResponseDto;
-import com.example.saessak.entity.TodoFarm;
 import com.example.saessak.entity.UserFarm;
-import com.example.saessak.entity.UserTodo;
 import com.example.saessak.entity.UserTodoFarm;
-import com.example.saessak.repository.TodoFarmRepository;
+import com.example.saessak.repository.TodoRepository;
 import com.example.saessak.repository.UserTodoFarmRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,10 +19,15 @@ public class UserTodoFarmService {
 
     private final UserTodoFarmRepository userTodoFarmRepository;
 
+    private final TodoRepository todoRepository;
+
     // 유저-할일-농장 생성 (농장주)
     @Transactional
     public UserTodoFarm save(List<Long> userId, int todoId, int farmId) {
         System.out.println("------ 유저-할일-농장 생성 ------");
+        if (!userTodoFarmRepository.findAllByTodoTodoId(todoId).isEmpty()) {
+            userTodoFarmRepository.deleteAllByTodoTodoId(todoId);
+        }
         UserTodoFarmRequestDto userTodoFarmRequestDto = new UserTodoFarmRequestDto();
         for (Long user : userId) {
             UserTodoFarm userTodoFarm = userTodoFarmRepository.save(userTodoFarmRequestDto.toEntity(user, todoId, farmId));
@@ -56,5 +57,13 @@ public class UserTodoFarmService {
         System.out.println("------ 할 일 조회(농장주) ------");
         List<UserTodoFarm> entity = userTodoFarmRepository.findAllByFarmFarmIdAndTodoDate(farmId, date);
         return entity.stream().map(userTodoFarm -> new UserTodoFarmResponseDto(userTodoFarm, userTodoFarm.getUser())).collect(Collectors.toList());
+    }
+
+    // 할 일 삭제(농장주)
+    @Transactional
+    public int deleteByTodoId(int todoId) {
+        userTodoFarmRepository.deleteByTodoTodoId(todoId);
+        todoRepository.deleteById(todoId);
+        return 1;
     }
 }

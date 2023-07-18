@@ -20,8 +20,8 @@ public class UserTodoFarm {
     // 유저-할일-농장ID
     private int userTodoFarmId;
 
-//    @Column(name = "date")
-//    private String date;
+    @Column(name = "date")
+    private String date;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -15,10 +15,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserTodoFarmRequestDto {
 
+    private int userTodoFarmId;
+
     private Long userId;
     private int todoId;
     private int farmId;
-//    private String date;
+    private String date;
 
     public UserTodoFarm toEntity(Long userId, int todoId, int farmId) {
         User user = User.builder().userId(userId).build();
@@ -26,10 +28,11 @@ public class UserTodoFarmRequestDto {
         Todo todo = Todo.builder().todoId(todoId).build();
 
         return UserTodoFarm.builder()
+                .userTodoFarmId(userTodoFarmId)
                 .user(user)
                 .farm(farm)
                 .todo(todo)
-//                .date(todo.getDate())
+                .date(todo.getDate())
                 .build();
 
     }

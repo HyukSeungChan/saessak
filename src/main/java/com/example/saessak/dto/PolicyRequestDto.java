@@ -20,6 +20,9 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class PolicyRequestDto {
 
+    private int policyId;
+
+
     // 지원사업명
     private String name;
 
@@ -49,6 +52,7 @@ public class PolicyRequestDto {
 
     public Policy toEntity() {
         return Policy.builder()
+                .policyId(policyId)
                 .name(name)
                 .target(target)
                 .content(content)

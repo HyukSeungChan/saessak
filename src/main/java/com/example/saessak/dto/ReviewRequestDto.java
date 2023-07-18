@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReviewRequestDto {
 
+    private int reviewId;
     private String content;
 
     private String image;
@@ -28,6 +29,7 @@ public class ReviewRequestDto {
         Farm farm = Farm.builder().farmId(farmId).build();
 
         return Review.builder()
+                .reviewId(reviewId)
                 .content(content)
                 .image(image)
                 .dateCreate(dateCreate)

@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserPolicyRequestDto {
+
+    private int userPolicyId;
     private Long userId;
     private int policyId;
 
@@ -18,6 +20,7 @@ public class UserPolicyRequestDto {
         User user = User.builder().userId(userId).build();
         Policy policy = Policy.builder().policyId(policyId).build();
         return UserPolicy.builder()
+                .userPolicyId(userPolicyId)
                 .policy(policy)
                 .user(user)
                 .build();

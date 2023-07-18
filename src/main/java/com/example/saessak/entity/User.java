@@ -62,10 +62,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     // mapping
-    private List<UserTodo> userTodos = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    // mapping
     private List<UserReply> userReplies = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")

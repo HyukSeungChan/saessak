@@ -19,8 +19,6 @@ public class TodoController {
 
     private final TodoService todoService;
 
-    private final UserTodoService userTodoService;
-
     // 할일 생성
     @PostMapping("/todo")
     public ResponseEntity<TodoRequestDto> save(@RequestBody TodoRequestDto todoRequestDto) {

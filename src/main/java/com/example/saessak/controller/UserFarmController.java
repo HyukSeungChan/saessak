@@ -8,6 +8,7 @@ import com.example.saessak.dto.WorkResumeResponseDto;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.UserFarmService;
 import com.example.saessak.service.UserWorkService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,10 +31,12 @@ public class UserFarmController {
         try {
             ResponseEntity.notFound();
             List<UserFarmResponseDto> userFarm = userFarmService.findAllByFarmFarmId(farmId);
+
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find user farm user !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user farm user successfully", userFarm));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user farm user successfully", mapper.writeValueAsString(userFarm)));
+        } catch (Exception e) {
             System.out.println("not work resume worker !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user farm user", null));
         }
@@ -46,10 +49,12 @@ public class UserFarmController {
         try {
             ResponseEntity.notFound();
             List<UserFarmResponseDto> userFarm = userFarmService.findAllByUserUserId(userId);
+
+            ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find user farm user !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user farm user successfully", userFarm));
-        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user farm user successfully", mapper.writeValueAsString(userFarm)));
+        } catch (Exception e) {
             System.out.println("not work resume worker !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user farm user", null));
         }

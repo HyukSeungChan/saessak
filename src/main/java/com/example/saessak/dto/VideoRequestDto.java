@@ -17,6 +17,8 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class VideoRequestDto {
 
+    private int videoId;
+
     private String title;
 
     private String source;
@@ -31,6 +33,7 @@ public class VideoRequestDto {
 
     public Video toEntity() {
         return Video.builder()
+                .videoId(videoId)
                 .title(title)
                 .source(source)
                 .link(link)

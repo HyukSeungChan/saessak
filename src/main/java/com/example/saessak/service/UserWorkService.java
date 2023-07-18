@@ -36,4 +36,11 @@ public class UserWorkService {
         return entity.stream().map(userWork -> new UserWorkResponseDto(userWork, userWork.getWork(), userWork.getWork().getFarm())).collect(Collectors.toList());
     }
 
+    // 유저-일자리 즐겨찾기 삭제
+    @Transactional
+    public int deleteByUserUserIdAndWorkWorkId(Long userId, int boardId) {
+        userWorkRepository.deleteByUserUserIdAndWorkWorkId(userId, boardId);
+        return 1;
+    }
+
 }

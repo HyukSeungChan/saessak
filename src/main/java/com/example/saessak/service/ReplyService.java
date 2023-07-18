@@ -40,6 +40,10 @@ public class ReplyService {
         Board board = boardRepository.findByBoardId(boardId);
         board.setReplies(board.getReplies()+1);
         // 내가 쓴 댓글 로직 추가
+        UserReply userReply = new UserReply();
+        userReply.setUser(reply.getUser());
+        userReply.setReply(reply);
+        userReplyRepository.save(userReply);
         return reply;
     }
 
