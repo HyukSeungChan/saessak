@@ -29,8 +29,18 @@ public class UserController {
     // 유저 생성
     @PostMapping(value = "/user", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<UserRequestDto> save(@RequestPart("userRequestDto") UserRequestDto userRequestDto, @RequestPart("file") MultipartFile multipartFile) throws IOException {
+        System.out.println("회원가입!!");
         userService.save(userRequestDto, amazonS3Service.upload(multipartFile).toString());
+        System.out.println("회원가입 완료!!");
         return ResponseEntity.ok(userRequestDto);
+    }
+
+    // 유저 카카오 생성
+    @PostMapping(value = "/user/kakao")
+    public ResponseEntity<ApiResponse> save(@RequestBody User user) {
+        System.out.println("/user/kakao start!!");
+        userService.saveUser(user);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","Post Created successfully", user));
     }
 
     // 해당 유저 정보 확인

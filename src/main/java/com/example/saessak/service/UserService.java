@@ -23,6 +23,14 @@ public class UserService {
         return userRepository.save(userRequestDto.toEntity());
     }
 
+    // 유저 생성
+    @Transactional
+    public User saveUser(User user) {
+        System.out.println("------ 유저 생성 ------");
+        System.out.println(user.getUserId() + ", " + user.getName() + ", " + user.getPhone() + ", " + user.getType());
+        return userRepository.save(user);
+    }
+
     // 해당 유저 정보 확인
     @Transactional(readOnly = true)
     public UserResponseDto findByUserId(Long userId) {
