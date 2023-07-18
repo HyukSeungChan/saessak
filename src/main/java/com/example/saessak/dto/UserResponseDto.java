@@ -20,6 +20,7 @@ public class UserResponseDto {
     private String profileImage;
     private String phone;
     private String type;
+    private int complete;
 
     public UserResponseDto(User user) {
         this.userId = user.getUserId();
@@ -27,6 +28,7 @@ public class UserResponseDto {
         this.profileImage = user.getProfileImage();
         this.phone = user.getPhone();
         this.type = user.getType();
+        this.complete = user.getComplete();
 
     }
 

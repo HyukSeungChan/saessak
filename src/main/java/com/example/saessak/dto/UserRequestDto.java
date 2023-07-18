@@ -21,6 +21,7 @@ public class UserRequestDto {
     private String profileImage;
     private String phone;
     private String type;
+    private int complete;
 
     public User toEntity() {
         return User.builder()
@@ -29,6 +30,7 @@ public class UserRequestDto {
                 .profileImage(profileImage)
                 .phone(phone)
                 .type(type)
+                .complete(complete)
                 .build();
     }
 

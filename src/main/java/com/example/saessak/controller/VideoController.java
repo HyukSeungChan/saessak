@@ -37,7 +37,7 @@ public class VideoController {
     public ResponseEntity<ApiResponse> findAllByType(@RequestParam("type") String type) {
         System.out.println("타입에 따른 영상 리스트 조회 !!");
         try {
-            ResponseEntity.notFound();
+//            ResponseEntity.notFound();
             List<VideoResponseDto> video = videoService.findAllByType(type);
 //            return ResponseEntity.ok(user);
             System.out.println("find video !!");
@@ -62,5 +62,14 @@ public class VideoController {
             System.out.println("not video !!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get video", null));
         }
+    }
+
+
+    @GetMapping("/video/watching")
+    public ResponseEntity<ApiResponse> watchingVideo(@RequestParam("videoId") int videoId, @RequestParam("userId") int userId) {
+        System.out.println("해당 영상 조회 !!");
+
+        videoService.saveWatch(videoId, userId);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", "true"));
     }
 }

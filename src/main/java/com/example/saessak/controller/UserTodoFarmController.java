@@ -45,6 +45,22 @@ public class UserTodoFarmController {
         }
     }
 
+    // 할 일 조회(유저) 전체
+    @GetMapping("/user/todo/all")
+    public ResponseEntity<ApiResponse> findAllByUserUserIdAndFarmFarmId(@RequestParam("userId") Long userId, @RequestParam("farmId") int farmId) {
+        System.out.println("할 일 조회(유저) !! fanm : " + farmId + ", user : " + userId);
+        try {
+            ResponseEntity.notFound();
+            List<UserTodoFarmResponseDto> userTodoFarm = userTodoFarmService.findAllByUserUserIdAndFarmFarmId(userId, farmId);
+//            return ResponseEntity.ok(user);
+            System.out.println("find user todo !!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user todo successfully", userTodoFarm));
+        } catch (IllegalArgumentException e) {
+            System.out.println("not user todo !!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user todo", null));
+        }
+    }
+
     // 할 일 조회 (농장주)
     @GetMapping("/todo/farm")
     public ResponseEntity<ApiResponse> findAllByFarmFarmIdAndTodoDate(@RequestParam("farmId") int farmId, @RequestParam("date") String date) {

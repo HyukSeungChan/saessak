@@ -49,6 +49,7 @@ public class WorkController {
             ResponseEntity.notFound();
             List<WorkListResponseDto> work = workService.findAll();
             System.out.println("find work !!");
+
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", work));
         } catch (IllegalArgumentException e) {
             System.out.println("not work !!");

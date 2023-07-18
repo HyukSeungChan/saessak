@@ -6,7 +6,9 @@ import com.example.saessak.dto.VideoRequestDto;
 import com.example.saessak.dto.VideoResponseDto;
 import com.example.saessak.entity.Board;
 import com.example.saessak.entity.Farm;
+import com.example.saessak.entity.UserVideo;
 import com.example.saessak.entity.Video;
+import com.example.saessak.repository.UserVideoRepository;
 import com.example.saessak.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class VideoService {
 
     private final VideoRepository videoRepository;
+    private final UserVideoRepository userVideoRepository;
 
     // 영상 생성
     @Transactional
@@ -46,5 +49,11 @@ public class VideoService {
         return new VideoResponseDto(entity);
     }
 
+
+    public int saveWatch(int videoId, int userId) {
+//        UserVideo userVideo = UserVideo.builder().userId(userId).videoId(videoId).build();
+//        userVideoRepository.save(userVideo);
+        return 1;
+    }
 
 }

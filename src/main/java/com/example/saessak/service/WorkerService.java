@@ -1,9 +1,6 @@
 package com.example.saessak.service;
 
-import com.example.saessak.dto.UserRequestDto;
-import com.example.saessak.dto.WorkRequestDto;
-import com.example.saessak.dto.WorkResponseDto;
-import com.example.saessak.dto.WorkerRequestDto;
+import com.example.saessak.dto.*;
 import com.example.saessak.entity.User;
 import com.example.saessak.entity.Work;
 import com.example.saessak.entity.Worker;
@@ -33,10 +30,10 @@ public class WorkerService {
 
     // 노동자 받아오기
     @Transactional(readOnly = true)
-    public Worker findWorker(Long userId) {
+    public WorkerResponseDto findWorker(Long userId) {
         System.out.println("------ 노동자 받아오기 ------");
         Worker entity = workerRepository.findByUserUserId(userId);
-        return entity;
+        return new WorkerResponseDto(entity);
     }
 
 }

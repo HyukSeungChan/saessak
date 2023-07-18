@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -36,6 +37,12 @@ public class User {
     @Column(name = "type")
     // 유저타입
     private String type;
+
+    @ColumnDefault("0")
+    @Column(name = "complete")
+    // 유저타입
+    private int complete;
+
 
     @OneToMany(mappedBy = "user")
     // mapping

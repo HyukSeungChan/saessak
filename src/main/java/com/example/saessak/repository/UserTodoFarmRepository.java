@@ -9,7 +9,9 @@ public interface UserTodoFarmRepository extends JpaRepository<UserTodoFarm, Inte
 
     // 할 일 조회(유저)
     List<UserTodoFarm> findAllByUserUserIdAndFarmFarmIdAndTodoDate(Long userId, int farmId, String date);
+    List<UserTodoFarm> findAllByUserUserIdAndFarmFarmId(Long userId, int farmId);
 
     // 할 일 조회(농장주)
     List<UserTodoFarm> findAllByFarmFarmIdAndTodoDate(int farmId, String date);
+
 }

@@ -42,6 +42,14 @@ public class UserTodoFarmService {
         return entity.stream().map(userTodoFarm -> new UserTodoFarmResponseDto(userTodoFarm)).collect(Collectors.toList());
     }
 
+    // 할 일 조회(유저)
+    @Transactional(readOnly = true)
+    public List<UserTodoFarmResponseDto> findAllByUserUserIdAndFarmFarmId(Long userId, int farmId) {
+        System.out.println("------ 할 일 조회(유저) ------");
+        List<UserTodoFarm> entity = userTodoFarmRepository.findAllByUserUserIdAndFarmFarmId(userId, farmId);
+        return entity.stream().map(userTodoFarm -> new UserTodoFarmResponseDto(userTodoFarm)).collect(Collectors.toList());
+    }
+
     // 할 일 조회(농장주)
     @Transactional(readOnly = true)
     public List<UserTodoFarmResponseDto> findAllByFarmFarmIdAndTodoDate(int farmId, String date) {

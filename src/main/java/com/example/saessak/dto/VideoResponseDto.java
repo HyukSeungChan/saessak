@@ -26,6 +26,8 @@ public class VideoResponseDto {
 
     private String crops_name;
 
+    private boolean watching;
+
     public VideoResponseDto(Video video) {
         this.videoId = video.getVideoId();
         this.title = video.getTitle();
