@@ -11,12 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkRecommendResponseDto {
-
     private String name;
     private String address;
     private String farmImage;
     private String agriculture;
     private String crops;
+
+    private int workId;
 
     private String farmerName;
 
@@ -26,6 +27,7 @@ public class WorkRecommendResponseDto {
         this.farmImage = work.getFarm().getFarmImage();
         this.agriculture = work.getFarm().getAgriculture();
         this.crops = work.getFarm().getCrops();
+        this.workId = work.getWorkId();
         this.farmerName = work.getFarm().getUser().getName();
 
     }
