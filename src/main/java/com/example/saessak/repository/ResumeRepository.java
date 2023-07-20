@@ -8,6 +8,4 @@ public interface ResumeRepository extends JpaRepository<Resume, Integer> {
     // 자신의 이력서 확인
     Resume findByUserUserId(Long userId);
 
-    // 이력서 생성
-    Resume saveByUserId(Long userId);
 }

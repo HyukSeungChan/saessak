@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 public class WorkService {
 
     private final WorkRepository workRepository;
-
     private final UserWorkRepository userWorkRepository;
 
     // 일자리 공고 생성(농장주)

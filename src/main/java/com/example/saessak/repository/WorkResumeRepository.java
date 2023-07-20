@@ -20,4 +20,5 @@ public interface WorkResumeRepository extends JpaRepository<WorkResume, Integer>
 
     // 일자리 확인
     WorkResume findByWorkWorkId(int workId);
+
 }

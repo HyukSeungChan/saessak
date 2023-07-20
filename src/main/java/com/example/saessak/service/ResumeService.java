@@ -6,8 +6,10 @@ import com.example.saessak.dto.WorkRequestDto;
 import com.example.saessak.dto.WorkResponseDto;
 import com.example.saessak.entity.Resume;
 import com.example.saessak.entity.Work;
+import com.example.saessak.entity.WorkResume;
 import com.example.saessak.repository.ResumeRepository;
 import com.example.saessak.repository.WorkRepository;
+import com.example.saessak.repository.WorkResumeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,12 +23,19 @@ public class ResumeService {
 
     private final ResumeRepository resumeRepository;
 
+    private final WorkResumeRepository workResumeRepository;
+
     // 이력서 생성
     @Transactional
     public Resume save(ResumeRequestDto resumeRequestDto) {
         System.out.println("------ 이력서 생성 ------");
         return resumeRepository.save(resumeRequestDto.toEntity());
     }
+
+//    @Transactional
+//    public int save(int workId, int resumeId) {
+//        return workResumeRepository.save(workId, resumeId);
+//    }
 
     // 자신의 이력서 확인
     @Transactional(readOnly = true)

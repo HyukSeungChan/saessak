@@ -18,8 +18,6 @@ public class ReplyRequestDto {
 
     private String content;
     private String uploadTime;
-
-    private String area;
     private int boardId;
     private Long userId;
 
@@ -29,21 +27,13 @@ public class ReplyRequestDto {
         Board board = Board.builder().boardId(boardId).build();
         Worker worker = workerRepository.findByUserUserId(user.getUserId());
         Farm farm = farmRepository.findByUserUserId(user.getUserId());
-        String areaValue = "";
 
-        if (worker != null) {
-            areaValue = worker.getArea();
-        } else {
-            String[] str = farm.getAddress().split(" ");
-            areaValue = str[0] + " " + str[1];
-        }
 
         // 지역을 보내야하나?? 고민해보기.
         return Reply.builder()
                 .replyId(replyId)
                 .content(content)
                 .uploadTime(uploadTime)
-                .area(areaValue)
                 .board(board)
                 .user(user)
                 .build();

@@ -44,10 +44,10 @@ public class BoardContoller {
             ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find board story !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board story successfully", mapper.writeValueAsString(board)));
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created", "get board story successfully", mapper.writeValueAsString(board)));
         } catch (Exception e) {
             System.out.println("not board story !!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board story", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found get board story", null));
         }
     }
 
@@ -61,10 +61,10 @@ public class BoardContoller {
             ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find board story !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board story successfully", mapper.writeValueAsString(board)));
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created", "get board story successfully", mapper.writeValueAsString(board)));
         } catch (Exception e) {
             System.out.println("not board story !!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board story", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found get board story", null));
         }
     }
 
@@ -78,16 +78,16 @@ public class BoardContoller {
             ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find board help !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board help successfully", mapper.writeValueAsString(board)));
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created", "get board help successfully", mapper.writeValueAsString(board)));
         } catch (Exception e) {
             System.out.println("not board help !!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board help", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found get board help", null));
         }
     }
 
     // 해당 글 조회
     @GetMapping("/board/detail")
-    public ResponseEntity<ApiResponse> findByBoardId(@RequestParam("boardId") int boardId){
+    public ResponseEntity<ApiResponse> findByBoardId(@RequestParam("boardId") int boardId) {
         System.out.println("해당 글 조회 !!");
         try {
             ResponseEntity.notFound();
@@ -95,10 +95,10 @@ public class BoardContoller {
             ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find board info!!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board info successfully", mapper.writeValueAsString(board)));
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created", "get board info successfully", mapper.writeValueAsString(board)));
         } catch (Exception e) {
             System.out.println("not board info!!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board info", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found get board info", null));
         }
     }
 
@@ -125,12 +125,12 @@ public class BoardContoller {
             System.out.println("find board hot !!");
 //            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board hot successfully", board));
 
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValueAsString(board);
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("NotFound","cant found get board hot", mapper.writeValueAsString(board)));
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValueAsString(board);
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("NotFound", "cant found get board hot", mapper.writeValueAsString(board)));
         } catch (IllegalArgumentException | JsonProcessingException e) {
             System.out.println("not board hot !!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board hot", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found get board hot", null));
 //            return "";
         }
     }
@@ -145,10 +145,10 @@ public class BoardContoller {
             ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find board filter!!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board filter successfully", mapper.writeValueAsString(board)));
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created", "get board filter successfully", mapper.writeValueAsString(board)));
         } catch (Exception e) {
             System.out.println("not board filter!!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board filter", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found get board filter", null));
         }
     }
 
@@ -162,11 +162,16 @@ public class BoardContoller {
             ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find my board!!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get my board successfully", mapper.writeValueAsString(board)));
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created", "get my board successfully", mapper.writeValueAsString(board)));
         } catch (Exception e) {
             System.out.println("not my board!!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get my board", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found get my board", null));
         }
     }
 
+    // 이미지만 넘기기
+    @PostMapping("/image")
+    public String saveImage(@RequestPart(value = "file", required = false) MultipartFile multipartFile) throws IOException {
+        return amazonS3Service.upload(multipartFile);
+    }
 }
