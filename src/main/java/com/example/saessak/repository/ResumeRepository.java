@@ -9,5 +9,5 @@ public interface ResumeRepository extends JpaRepository<Resume, Integer> {
     Resume findByUserUserId(Long userId);
 
     // 이력서 생성
-    Resume saveByUserId(Long userId);
+//    Resume saveByUserId(Long userId);
 }

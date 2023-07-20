@@ -37,6 +37,14 @@ public class UserTodoFarmService {
 
     // 할 일 조회(유저)
     @Transactional(readOnly = true)
+    public List<UserTodoFarmResponseDto> findAllByUserUserIdAndFarmFarmIdAnd(Long userId, int farmId) {
+        System.out.println("------ 할 일 조회(유저) ------");
+        List<UserTodoFarm> entity = userTodoFarmRepository.findAllByUserUserIdAndFarmFarmId(userId, farmId);
+        return entity.stream().map(userTodoFarm -> new UserTodoFarmResponseDto(userTodoFarm)).collect(Collectors.toList());
+    }
+
+    // 할 일 조회(유저)
+    @Transactional(readOnly = true)
     public List<UserTodoFarmResponseDto> findAllByUserUserIdAndFarmFarmIdAndTodoDate(Long userId, int farmId, String date) {
         System.out.println("------ 할 일 조회(유저) ------");
         List<UserTodoFarm> entity = userTodoFarmRepository.findAllByUserUserIdAndFarmFarmIdAndTodoDate(userId, farmId, date);
@@ -51,12 +59,20 @@ public class UserTodoFarmService {
         return entity.stream().map(userTodoFarm -> new UserTodoFarmResponseDto(userTodoFarm)).collect(Collectors.toList());
     }
 
+    // 할 일 조회(유저)
+    @Transactional(readOnly = true)
+    public List<UserTodoFarmResponseDto> findAllByFarmFarmId(int farmId) {
+        System.out.println("------ 할 일 조회(유저) ------");
+        List<UserTodoFarm> entity = userTodoFarmRepository.findAllByFarmFarmId(farmId);
+        return entity.stream().map(userTodoFarm -> new UserTodoFarmResponseDto(userTodoFarm)).collect(Collectors.toList());
+    }
+
     // 할 일 조회(농장주)
     @Transactional(readOnly = true)
     public List<UserTodoFarmResponseDto> findAllByFarmFarmIdAndTodoDate(int farmId, String date) {
         System.out.println("------ 할 일 조회(농장주) ------");
         List<UserTodoFarm> entity = userTodoFarmRepository.findAllByFarmFarmIdAndTodoDate(farmId, date);
-        return entity.stream().map(userTodoFarm -> new UserTodoFarmResponseDto(userTodoFarm, userTodoFarm.getUser())).collect(Collectors.toList());
+        return entity.stream().map(userTodoFarm -> new UserTodoFarmResponseDto(userTodoFarm)).collect(Collectors.toList());
     }
 
     // 할 일 삭제(농장주)

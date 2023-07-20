@@ -19,10 +19,6 @@ public class UserTodoFarmRequestDto {
     private int userTodoFarmId;
 
     private Long userId;
-    private int farmId;
-    String todo;
-    private String date;
-
 
     private int farmId;
 
@@ -42,6 +38,5 @@ public class UserTodoFarmRequestDto {
                 .todo(todo)
                 .build();
     }
->>>>>>> 768e6cc2cb7f73cf132432d4d1ef74e0144cf207
 }
 
