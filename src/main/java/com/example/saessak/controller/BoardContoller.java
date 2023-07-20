@@ -1,6 +1,7 @@
 package com.example.saessak.controller;
 
 import com.example.saessak.dto.*;
+import com.example.saessak.entity.Board;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.AmazonS3Service;
 import com.example.saessak.service.BoardService;
@@ -10,11 +11,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,6 +32,23 @@ public class BoardContoller {
     public ResponseEntity<BoardRequestDto> save(@RequestPart("boardRequestDto") BoardRequestDto boardRequestDto, @RequestPart(value = "file", required = false) MultipartFile multipartFile) throws IOException {
         boardService.save(boardRequestDto, amazonS3Service.upload(multipartFile));
         return ResponseEntity.ok(boardRequestDto);
+    }
+
+    // 글 전체 받아오기
+    @GetMapping("/board/all")
+    public ResponseEntity<ApiResponse> findAll() {
+        System.out.println("게시글 리스트 조회 !!");
+        try {
+            ResponseEntity.notFound();
+            List<BoardResponseDto> board = boardService.findAll();
+            ObjectMapper mapper = new ObjectMapper();
+//            return ResponseEntity.ok(user);
+            System.out.println("find board story !!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board story successfully", mapper.writeValueAsString(board)));
+        } catch (Exception e) {
+            System.out.println("not board story !!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board story", null));
+        }
     }
 
     // 농촌 이야기 게시글 리스트 조회
@@ -96,11 +116,11 @@ public class BoardContoller {
 
     // 실시간 인기글
     @GetMapping("/board/hot")
-    public ResponseEntity<ApiResponse> findAllByOrderByLikesDesc() {
+    public ResponseEntity<ApiResponse> findAllByOrderByRepliesDesc() {
         System.out.println("실시간 인기글 조회 !!");
         try {
             ResponseEntity.notFound();
-            List<BoardResponseDto> board = boardService.findAllByOrderByLikesDesc();
+            List<BoardResponseDto> board = boardService.findAllByOrderByRepliesDesc();
 //            return ResponseEntity.ok(user);
             System.out.println("find board hot !!");
 //            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board hot successfully", board));
@@ -129,6 +149,23 @@ public class BoardContoller {
         } catch (Exception e) {
             System.out.println("not board filter!!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board filter", null));
+        }
+    }
+
+    // 내가 쓴 글 확인
+    @GetMapping("/board/my")
+    public ResponseEntity<ApiResponse> findAllByUserUserId(@RequestParam("userId") Long userId) {
+        System.out.println("내가 쓴 글 확인 !!");
+        try {
+            ResponseEntity.notFound();
+            List<BoardResponseDto> board = boardService.findAllByUserUserId(userId);
+            ObjectMapper mapper = new ObjectMapper();
+//            return ResponseEntity.ok(user);
+            System.out.println("find my board!!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get my board successfully", mapper.writeValueAsString(board)));
+        } catch (Exception e) {
+            System.out.println("not my board!!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get my board", null));
         }
     }
 

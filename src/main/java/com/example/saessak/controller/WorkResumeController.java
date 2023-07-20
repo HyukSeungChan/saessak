@@ -32,7 +32,7 @@ public class WorkResumeController {
         System.out.println("이력서 리스트 조회(도시농부) !!");
         try {
             ResponseEntity.notFound();
-            List<WorkResumeResponseDto> workResume = workResumeService.findAllByResumeUserUserId(userId);
+            List<WorkResumeResponseWorkerDto> workResume = workResumeService.findAllByResumeUserUserId(userId);
             ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find work resume worker !!");

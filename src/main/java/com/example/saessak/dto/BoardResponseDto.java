@@ -38,6 +38,7 @@ public class BoardResponseDto {
     private String name;
     private String profileImage;
 
+
     public BoardResponseDto(Board board) {
         this.boardId = board.getBoardId();
         this.title = board.getTitle();

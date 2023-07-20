@@ -17,4 +17,7 @@ public interface WorkResumeRepository extends JpaRepository<WorkResume, Integer>
 
     // 농장주 접수된 이력서 확인, 도시농부 접수한 이력서 확인
     WorkResume findByWorkResumeId(int workResumeId);
+
+    // 일자리 확인
+    WorkResume findByWorkWorkId(int workId);
 }

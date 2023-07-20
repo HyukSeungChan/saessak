@@ -36,14 +36,13 @@ public class BoardService {
         return boardRepository.save(boardRequestDto.toEntity(workerRepository, farmRepository));
     }
 
-//    // 글 생성 사진 없을 때
-//    @Transactional
-//    public Board save(BoardRequestImageDto boardRequestDto){
-//        System.out.println("------ 글 생성 ------");
-//        boardRequestDto.setLikes(0);
-//        boardRequestDto.setReplies(0);
-//        return boardRepository.save(boardRequestDto.toEntity(workerRepository, farmRepository));
-//    }
+    // 글 전체 받아오기
+    @Transactional(readOnly = true)
+    public List<BoardResponseDto> findAll() {
+        System.out.println("------ 게시글 리스트 조회 ------");
+        List<Board> entity = boardRepository.findAll();
+        return entity.stream().map(BoardResponseDto::new).collect(Collectors.toList());
+    }
 
     // 농촌 이야기 게시글 리스트 조회
     @Transactional(readOnly = true)
@@ -93,9 +92,9 @@ public class BoardService {
 
     // 실시간 인기글
     @Transactional(readOnly = true)
-    public List<BoardResponseDto> findAllByOrderByLikesDesc() {
+    public List<BoardResponseDto> findAllByOrderByRepliesDesc() {
         System.out.println("------ 실시간 인기글 ------");
-        List<Board> entity = boardRepository.findAllByOrderByLikesDesc();
+        List<Board> entity = boardRepository.findAllByOrderByRepliesDesc();
         return entity.stream().limit(2).map(BoardResponseDto::new).collect(Collectors.toList());
     }
 
@@ -103,7 +102,21 @@ public class BoardService {
     @Transactional(readOnly = true)
     public List<BoardResponseDto> findAllByAgricultureIsNotNullAndCropsContaining(String crops) {
         System.out.println("------ 실시간 인기글 ------");
-        List<Board> entity = boardRepository.findAllByAgricultureIsNotNullAndCropsContaining(crops);
+        List<Board> entity;
+        if(crops.equals("전체")){
+            entity = boardRepository.findAllByAgricultureIsNotNull();
+        }else{
+            entity = boardRepository.findAllByAgricultureIsNotNullAndCropsContaining(crops);
+        }
+
+        return entity.stream().map(BoardResponseDto::new).collect(Collectors.toList());
+    }
+
+    // 내가 쓴 글 확인
+    @Transactional(readOnly = true)
+    public List<BoardResponseDto> findAllByUserUserId(Long userId) {
+        System.out.println("------ 게시글 리스트 조회 ------");
+        List<Board> entity = boardRepository.findAllByUserUserId(userId);
         return entity.stream().map(BoardResponseDto::new).collect(Collectors.toList());
     }
 

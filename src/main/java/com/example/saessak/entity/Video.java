@@ -44,7 +44,7 @@ public class Video {
 
     @Column(name = "crops_name")
     // 작물명
-    private String crops_name;
+    private String cropsName;
 
     @OneToMany(mappedBy = "video")
     // mapping

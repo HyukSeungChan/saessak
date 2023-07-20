@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,8 +58,6 @@ public class VideoService {
         return 1;
     }
 
-    // 미시청 영상 보여주기
-
 
     // 시청 영상 보여주기
     @Transactional(readOnly = true)
@@ -85,4 +84,26 @@ public class VideoService {
         return videoResponseDtos;
     }
 
+    // 영상 필터링
+    @Transactional(readOnly = true)
+    public List<VideoResponseDto> videoFilter(String cropsName) {
+        System.out.println("------ 영상 필터링 ------");
+        List<Video> entity = videoRepository.findAll();
+        if (cropsName != null && !cropsName.isEmpty()) {
+            List<String> cropsNameList = Arrays.asList(cropsName.split(","));
+            entity = entity.stream()
+                    .filter(video -> containsAnyItem(cropsNameList, video.getCropsName()))
+                    .collect(Collectors.toList());
+        }
+        return entity.stream().map(VideoResponseDto::new).collect(Collectors.toList());
+    }
+
+    private boolean containsAnyItem(List<String> itemList, String item) {
+        for (String value : itemList) {
+            if (value.equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

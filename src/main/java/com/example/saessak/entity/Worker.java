@@ -39,7 +39,7 @@ public class Worker {
     private String pay;
 
     @Column(name = "crops")
-    // 희망작물
+    // 희망작목
     private String crops;
 
     @Column(name = "interest_crops")

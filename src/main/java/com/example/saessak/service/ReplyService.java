@@ -39,11 +39,6 @@ public class ReplyService {
         int boardId = replyRequestDto.getBoardId();
         Board board = boardRepository.findByBoardId(boardId);
         board.setReplies(board.getReplies()+1);
-        // 내가 쓴 댓글 로직 추가
-        UserReply userReply = new UserReply();
-        userReply.setUser(reply.getUser());
-        userReply.setReply(reply);
-        userReplyRepository.save(userReply);
         return reply;
     }
 
@@ -52,6 +47,14 @@ public class ReplyService {
     public List<ReplyResponseDto> findAllByBoardBoardId(int boardId) {
         System.out.println("------ 해당 글의 댓글 리스트 ------");
         List<Reply> entity = replyRepository.findAllByBoardBoardId(boardId);
+        return entity.stream().map(ReplyResponseDto::new).collect(Collectors.toList());
+    }
+
+    // 내가 쓴 댓글 리스트 조회
+    @Transactional(readOnly = true)
+    public List<ReplyResponseDto> findAllByUserUserId(Long userId) {
+        System.out.println("------ 해당 글의 댓글 리스트 ------");
+        List<Reply> entity = replyRepository.findAllByUserUserId(userId);
         return entity.stream().map(ReplyResponseDto::new).collect(Collectors.toList());
     }
 }

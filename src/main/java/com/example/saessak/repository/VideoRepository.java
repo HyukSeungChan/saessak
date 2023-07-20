@@ -10,4 +10,7 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
 
     // 타입에 따른 영상 리스트 조회
     List<Video> findAllByType(String type);
+
+    // 세부 작목 영상 필터링
+    List<Video> findAllByCropsNameContaining(String cropsName);
 }

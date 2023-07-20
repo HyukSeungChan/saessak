@@ -54,10 +54,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     // mapping
-    private List<UserPolicy> userPolicies = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    // mapping
     private List<UserFarm> userFarms = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")

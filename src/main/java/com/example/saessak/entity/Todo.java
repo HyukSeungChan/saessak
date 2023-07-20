@@ -30,7 +30,4 @@ public class Todo {
     // 일감
     private String task;
 
-    @OneToMany(mappedBy = "todo")
-    // mapping
-    private List<UserTodoFarm> userTodofarms = new ArrayList<>();
 }
