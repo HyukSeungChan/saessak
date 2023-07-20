@@ -18,22 +18,9 @@ public class UserTodoFarmRequestDto {
     private int userTodoFarmId;
 
     private Long userId;
-    private int todoId;
     private int farmId;
+    String todo;
     private String date;
 
-    public UserTodoFarm toEntity(Long userId, int todoId, int farmId) {
-        User user = User.builder().userId(userId).build();
-        Farm farm = Farm.builder().farmId(farmId).build();
-        Todo todo = Todo.builder().todoId(todoId).build();
 
-        return UserTodoFarm.builder()
-                .userTodoFarmId(userTodoFarmId)
-                .user(user)
-                .farm(farm)
-                .todo(todo)
-                .date(todo.getDate())
-                .build();
-
-    }
 }

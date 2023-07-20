@@ -17,10 +17,10 @@ public class FarmService {
 
     // 농장 생성
     @Transactional
-    public Farm save(FarmRequestDto farmRequestDto, String fileUrl){
+    public Farm save(FarmRequestDto farmRequestDto){
         System.out.println("------ 농장 생성 ------");
-        fileUrl = fileUrl.replace("[", "").replace("]", "");
-        farmRequestDto.setFarmImage(fileUrl);
+//        fileUrl = fileUrl.replace("[", "").replace("]", "");
+//        farmRequestDto.setFarmImage(fileUrl);
         return farmRepository.save(farmRequestDto.toEntity());
     }
 }

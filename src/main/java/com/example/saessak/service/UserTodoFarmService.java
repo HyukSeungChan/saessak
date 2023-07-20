@@ -30,7 +30,7 @@ public class UserTodoFarmService {
         }
         UserTodoFarmRequestDto userTodoFarmRequestDto = new UserTodoFarmRequestDto();
         for (Long user : userId) {
-            UserTodoFarm userTodoFarm = userTodoFarmRepository.save(userTodoFarmRequestDto.toEntity(user, todoId, farmId));
+//            UserTodoFarm userTodoFarm = userTodoFarmRepository.save(userTodoFarmRequestDto.toEntity(user, todoId, farmId));
         }
         return new UserTodoFarm();
     }

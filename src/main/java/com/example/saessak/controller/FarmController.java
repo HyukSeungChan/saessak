@@ -2,9 +2,11 @@ package com.example.saessak.controller;
 
 import com.example.saessak.dto.FarmRequestDto;
 import com.example.saessak.dto.WorkRequestDto;
+import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.AmazonS3Service;
 import com.example.saessak.service.FarmService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,9 +27,10 @@ public class FarmController {
     private final AmazonS3Service amazonS3Service;
 
     // 농장 생성
-    @PostMapping(value = "/farm", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<FarmRequestDto> save(@RequestPart("farmRequestDto") FarmRequestDto farmRequestDto, @RequestPart("file") MultipartFile multipartFile) throws IOException {
-        farmService.save(farmRequestDto, amazonS3Service.upload(multipartFile).toString());
-        return ResponseEntity.ok(farmRequestDto);
+    @PostMapping(value = "/farm")
+    public ResponseEntity<ApiResponse> save(@RequestBody FarmRequestDto farmRequestDto) {
+        farmService.save(farmRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","Post Created successfully", "good"));
+//        return ResponseEntity.ok(farmRequestDto);
     }
 }
