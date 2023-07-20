@@ -1,7 +1,7 @@
 package com.example.saessak.dto;
 
 import com.example.saessak.entity.Farm;
-import com.example.saessak.entity.Todo;
+//import com.example.saessak.entity.Todo;
 import com.example.saessak.entity.User;
 import com.example.saessak.entity.UserTodoFarm;
 import lombok.AllArgsConstructor;
@@ -17,11 +17,16 @@ public class UserTodoFarmResponseDto {
 
     private int userTodoFarmId;
     private Long userId;
-    private int todoId;
     private int farmId;
+    private int todoId;
+
+
+
+    private String task;
+
+    private String date;
 
     // 일자리 정보
-    private String task;
 
     // 노동자 정보
     private String name;
@@ -31,7 +36,6 @@ public class UserTodoFarmResponseDto {
     public UserTodoFarmResponseDto(UserTodoFarm userTodoFarm) {
         this.userTodoFarmId = userTodoFarm.getUserTodoFarmId();
         this.userId = userTodoFarm.getUser().getUserId();
-        this.todoId = userTodoFarm.getTodo().getTodoId();
         this.farmId = userTodoFarm.getFarm().getFarmId();
 
         this.task = userTodoFarm.getTodo().getTask();
@@ -43,7 +47,7 @@ public class UserTodoFarmResponseDto {
         this.userId = userTodoFarm.getUser().getUserId();
         this.todoId = userTodoFarm.getTodo().getTodoId();
         this.farmId = userTodoFarm.getFarm().getFarmId();
-
+        this.date = userTodoFarm.getTodo().getDate();
         this.task = userTodoFarm.getTodo().getTask();
 
         this.name = userTodoFarm.getUser().getName();

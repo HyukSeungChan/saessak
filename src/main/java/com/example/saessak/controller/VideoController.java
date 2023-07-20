@@ -4,6 +4,7 @@ import com.example.saessak.dto.BoardResponseDto;
 import com.example.saessak.dto.FarmRequestDto;
 import com.example.saessak.dto.VideoRequestDto;
 import com.example.saessak.dto.VideoResponseDto;
+import com.example.saessak.entity.Video;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.AmazonS3Service;
 import com.example.saessak.service.UserVideoWatchService;
@@ -13,11 +14,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -88,4 +91,21 @@ public class VideoController {
         }
     }
 
+    // 영상 필터링
+    @GetMapping("/video/filter")
+    public ResponseEntity<ApiResponse> videoFilter(@RequestParam("cropsName") String cropsName) {
+        System.out.println("영상 필터링 !!");
+        try {
+            ResponseEntity.notFound();
+            List<VideoResponseDto> video = videoService.videoFilter(cropsName);
+            ObjectMapper mapper = new ObjectMapper();
+//            return ResponseEntity.ok(user);
+            System.out.println("find video !!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", mapper.writeValueAsString(video)));
+//            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get video successfully", video));
+        } catch (Exception e) {
+            System.out.println("not video !!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get video", null));
+        }
+    }
 }

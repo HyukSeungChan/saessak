@@ -116,11 +116,11 @@ public class BoardContoller {
 
     // 실시간 인기글
     @GetMapping("/board/hot")
-    public ResponseEntity<ApiResponse> findAllByOrderByLikesDesc() {
+    public ResponseEntity<ApiResponse> findAllByOrderByRepliesDesc() {
         System.out.println("실시간 인기글 조회 !!");
         try {
             ResponseEntity.notFound();
-            List<BoardResponseDto> board = boardService.findAllByOrderByLikesDesc();
+            List<BoardResponseDto> board = boardService.findAllByOrderByRepliesDesc();
 //            return ResponseEntity.ok(user);
             System.out.println("find board hot !!");
 //            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get board hot successfully", board));
@@ -149,6 +149,23 @@ public class BoardContoller {
         } catch (Exception e) {
             System.out.println("not board filter!!");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get board filter", null));
+        }
+    }
+
+    // 내가 쓴 글 확인
+    @GetMapping("/board/my")
+    public ResponseEntity<ApiResponse> findAllByUserUserId(@RequestParam("userId") Long userId) {
+        System.out.println("내가 쓴 글 확인 !!");
+        try {
+            ResponseEntity.notFound();
+            List<BoardResponseDto> board = boardService.findAllByUserUserId(userId);
+            ObjectMapper mapper = new ObjectMapper();
+//            return ResponseEntity.ok(user);
+            System.out.println("find my board!!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get my board successfully", mapper.writeValueAsString(board)));
+        } catch (Exception e) {
+            System.out.println("not my board!!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get my board", null));
         }
     }
 

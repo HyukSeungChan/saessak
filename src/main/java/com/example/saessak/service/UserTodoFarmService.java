@@ -4,7 +4,7 @@ import com.example.saessak.dto.UserTodoFarmRequestDto;
 import com.example.saessak.dto.UserTodoFarmResponseDto;
 import com.example.saessak.entity.UserFarm;
 import com.example.saessak.entity.UserTodoFarm;
-import com.example.saessak.repository.TodoRepository;
+//import com.example.saessak.repository.TodoRepository;
 import com.example.saessak.repository.UserTodoFarmRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class UserTodoFarmService {
 
     private final UserTodoFarmRepository userTodoFarmRepository;
 
-    private final TodoRepository todoRepository;
+//    private final TodoRepository todoRepository;
 
     // 유저-할일-농장 생성 (농장주)
     @Transactional
@@ -63,7 +63,7 @@ public class UserTodoFarmService {
     @Transactional
     public int deleteByTodoId(int todoId) {
         userTodoFarmRepository.deleteByTodoTodoId(todoId);
-        todoRepository.deleteById(todoId);
+//        todoRepository.deleteById(todoId);
         return 1;
     }
 }

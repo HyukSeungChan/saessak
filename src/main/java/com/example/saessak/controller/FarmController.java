@@ -2,7 +2,6 @@ package com.example.saessak.controller;
 
 import com.example.saessak.dto.FarmRequestDto;
 import com.example.saessak.dto.FarmResponseDto;
-import com.example.saessak.dto.PolicyResponseDto;
 import com.example.saessak.dto.WorkRequestDto;
 import com.example.saessak.entity.Farm;
 import com.example.saessak.payload.ApiResponse;

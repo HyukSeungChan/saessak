@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BoardRequestDto {
 
-    private int boardId;
+//    private int boardId;
 
     private String title;
 
@@ -53,7 +53,7 @@ public class BoardRequestDto {
         }
 
         return Board.builder()
-                .boardId(boardId)
+//                .boardId(boardId)
                 .title(title)
                 .content(content)
                 .uploadTime(uploadTime)

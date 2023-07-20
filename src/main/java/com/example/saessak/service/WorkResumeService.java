@@ -1,13 +1,12 @@
 package com.example.saessak.service;
 
-import com.example.saessak.dto.ResumeRequestDto;
-import com.example.saessak.dto.UserFarmRequestDto;
-import com.example.saessak.dto.WorkResumeRequestDto;
-import com.example.saessak.dto.WorkResumeResponseDto;
+import com.example.saessak.dto.*;
 import com.example.saessak.entity.Resume;
+import com.example.saessak.entity.Work;
 import com.example.saessak.entity.WorkResume;
 import com.example.saessak.entity.UserFarm;
 import com.example.saessak.repository.ResumeRepository;
+import com.example.saessak.repository.WorkRepository;
 import com.example.saessak.repository.WorkResumeRepository;
 import com.example.saessak.repository.UserFarmRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +22,8 @@ public class WorkResumeService {
 
     private final WorkResumeRepository workResumeRepository;
 
+    private final WorkRepository workRepository;
+
     private final ResumeRepository resumeRepository;
 
     private final UserFarmRepository userFarmRepository;
@@ -31,15 +32,17 @@ public class WorkResumeService {
     @Transactional
     public WorkResume save(WorkResumeRequestDto workResumeRequestDto){
         System.out.println("------ 이력서 생성 ------");
+        Work entity = workRepository.findById(workResumeRequestDto.getWorkId()).orElseThrow(()->new IllegalArgumentException("일자리가 없습니다"));
+        workResumeRequestDto.setDate(entity.getRecruitmentEnd());
         return workResumeRepository.save(workResumeRequestDto.toEntity());
     }
 
     // 이력서 리스트 조회(도시농부)
     @Transactional(readOnly = true)
-    public List<WorkResumeResponseDto> findAllByResumeUserUserId(Long userId) {
+    public List<WorkResumeResponseWorkerDto> findAllByResumeUserUserId(Long userId) {
         System.out.println("------ 이력서 리스트 조회(도시농부) ------");
         List<WorkResume> entity = workResumeRepository.findAllByResumeUserUserId(userId);
-        return entity.stream().map(WorkResumeResponseDto::new).collect(Collectors.toList());
+        return entity.stream().map(WorkResumeResponseWorkerDto::new).collect(Collectors.toList());
     }
 
     // 지원취소 (도시농부)
@@ -72,9 +75,9 @@ public class WorkResumeService {
     public WorkResumeResponseDto updateState(int workResumeId) {
         System.out.println("------ 이력서 승인(농장주) ------");
         WorkResume entity = workResumeRepository.findByWorkResumeId(workResumeId);
-        entity.setState("승인");
+        entity.setState("승인완료");
 
-        if (entity.getState().equals("승인")) {
+        if (entity.getState().equals("승인완료")) {
             UserFarm userFarm = UserFarm.builder()
                     .user(entity.getResume().getUser())
                     .dateStart(entity.getResume().getWorkStartDay())

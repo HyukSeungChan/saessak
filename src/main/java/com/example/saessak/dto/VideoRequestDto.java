@@ -39,7 +39,7 @@ public class VideoRequestDto {
                 .link(link)
                 .type(type)
                 .crops(crops)
-                .crops_name(crops_name)
+                .cropsName(crops_name)
                 .build();
     }
 }

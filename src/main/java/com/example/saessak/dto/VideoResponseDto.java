@@ -24,7 +24,7 @@ public class VideoResponseDto {
 
     private String crops;
 
-    private String crops_name;
+    private String cropsName;
 
     private boolean watching;
 
@@ -37,6 +37,6 @@ public class VideoResponseDto {
         this.link = video.getLink();
         this.type = video.getType();
         this.crops = video.getCrops();
-        this.crops_name = video.getCrops_name();
+        this.cropsName = video.getCropsName();
     }
 }

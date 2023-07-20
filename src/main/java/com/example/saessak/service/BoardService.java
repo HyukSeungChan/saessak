@@ -92,9 +92,9 @@ public class BoardService {
 
     // 실시간 인기글
     @Transactional(readOnly = true)
-    public List<BoardResponseDto> findAllByOrderByLikesDesc() {
+    public List<BoardResponseDto> findAllByOrderByRepliesDesc() {
         System.out.println("------ 실시간 인기글 ------");
-        List<Board> entity = boardRepository.findAllByOrderByLikesDesc();
+        List<Board> entity = boardRepository.findAllByOrderByRepliesDesc();
         return entity.stream().limit(2).map(BoardResponseDto::new).collect(Collectors.toList());
     }
 
@@ -109,6 +109,14 @@ public class BoardService {
             entity = boardRepository.findAllByAgricultureIsNotNullAndCropsContaining(crops);
         }
 
+        return entity.stream().map(BoardResponseDto::new).collect(Collectors.toList());
+    }
+
+    // 내가 쓴 글 확인
+    @Transactional(readOnly = true)
+    public List<BoardResponseDto> findAllByUserUserId(Long userId) {
+        System.out.println("------ 게시글 리스트 조회 ------");
+        List<Board> entity = boardRepository.findAllByUserUserId(userId);
         return entity.stream().map(BoardResponseDto::new).collect(Collectors.toList());
     }
 

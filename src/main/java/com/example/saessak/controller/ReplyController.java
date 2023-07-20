@@ -47,4 +47,23 @@ public class ReplyController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get reply", null));
         }
     }
+
+    // 내가 쓴 댓글 리스트 조회
+    @GetMapping("/reply/user")
+    public ResponseEntity<ApiResponse> findAllByUserUserId(@RequestParam("userId") Long userId) {
+        System.out.println("해당 글의 댓글 리스트 조회 !!");
+        try {
+            ResponseEntity.notFound();
+            List<ReplyResponseDto> reply = replyService.findAllByUserUserId(userId);
+
+            ObjectMapper mapper = new ObjectMapper();
+//            return ResponseEntity.ok(user);
+            System.out.println("find reply !!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get reply successfully", mapper.writeValueAsString(reply)));
+        } catch (Exception e) {
+            System.out.println("not reply !!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get reply", null));
+        }
+    }
+
 }

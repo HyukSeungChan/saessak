@@ -30,8 +30,11 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     void decreaseLikes(@Param("boardId") int boardId);
 
     // 실시간 인기글
-    List<Board> findAllByOrderByLikesDesc();
+    List<Board> findAllByOrderByRepliesDesc();
 
     // 도와줘요 필터링
     List<Board> findAllByAgricultureIsNotNullAndCropsContaining(String crops);
+
+    // 내가 쓴 글
+    List<Board> findAllByUserUserId(Long userId);
 }
