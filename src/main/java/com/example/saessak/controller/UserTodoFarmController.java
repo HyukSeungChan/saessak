@@ -25,8 +25,8 @@ public class UserTodoFarmController {
         return ResponseEntity.ok(userTodoFarmService.save(userId, todoId, farmId));
     }
 
-    // 할 일 조회(유저)
-    @GetMapping("/user/todo")
+    // 할 일 조회(유저) 유저id 농장id 날짜 -> 메인
+    @GetMapping("/user/todo/date")
     public ResponseEntity<ApiResponse> findAllByUserUserIdAndFarmFarmIdAndTodoDate(@RequestParam("userId") Long userId, @RequestParam("farmId") int farmId, @RequestParam("date") String date) {
         System.out.println("할 일 조회(유저) !!");
         try {
@@ -43,13 +43,33 @@ public class UserTodoFarmController {
         }
     }
 
-    // 할 일 조회(유저) 전체
-    @GetMapping("/user/todo/all")
+
+    // 할 일 조회(유저) 유저id 농장id -> 농장터 홈
+    @GetMapping("/user/todo")
     public ResponseEntity<ApiResponse> findAllByUserUserIdAndFarmFarmId(@RequestParam("userId") Long userId, @RequestParam("farmId") int farmId) {
-        System.out.println("할 일 조회(유저) !! fanm : " + farmId + ", user : " + userId);
+        System.out.println("할 일 조회(유저) !!");
         try {
             ResponseEntity.notFound();
             List<UserTodoFarmResponseDto> userTodoFarm = userTodoFarmService.findAllByUserUserIdAndFarmFarmId(userId, farmId);
+
+            ObjectMapper mapper = new ObjectMapper();
+//            return ResponseEntity.ok(user);
+            System.out.println("find user todo !!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user todo successfully", mapper.writeValueAsString(userTodoFarm)));
+        } catch (Exception e) {
+            System.out.println("not user todo !!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user todo", null));
+        }
+    }
+
+    // 할 일 조회(유저) 전체 -> 농장주 농장터
+    @GetMapping("/user/todo/all")
+    public ResponseEntity<ApiResponse> findAllByUserUserIdAndFarmFarmId(@RequestParam("farmId") int farmId) {
+        System.out.println("할 일 조회(유저) !! fanm : " + farmId);
+        try {
+            ResponseEntity.notFound();
+//            List<UserTodoFarmResponseDto> userTodoFarm = userTodoFarmService.findAllByUserUserIdAndFarmFarmId(userId, farmId);
+            List<UserTodoFarmResponseDto> userTodoFarm = userTodoFarmService.findAllByFarmFarmId(farmId);
 
             ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);

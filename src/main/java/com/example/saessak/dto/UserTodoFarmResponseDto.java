@@ -19,30 +19,25 @@ public class UserTodoFarmResponseDto {
     private Long userId;
     private int farmId;
     private int todoId;
-
-
-
     private String task;
-
     private String date;
-
-    // 일자리 정보
 
     // 노동자 정보
     private String name;
     private String profile_image;
 
     // 노동자
-    public UserTodoFarmResponseDto(UserTodoFarm userTodoFarm) {
-        this.userTodoFarmId = userTodoFarm.getUserTodoFarmId();
-        this.userId = userTodoFarm.getUser().getUserId();
-        this.farmId = userTodoFarm.getFarm().getFarmId();
-
-        this.task = userTodoFarm.getTodo().getTask();
-    }
+//    public UserTodoFarmResponseDto(UserTodoFarm userTodoFarm) {
+//        this.userTodoFarmId = userTodoFarm.getUserTodoFarmId();
+//        this.userId = userTodoFarm.getUser().getUserId();
+//        this.farmId = userTodoFarm.getFarm().getFarmId();
+//        this.date = userTodoFarm.getTodo().getDate();
+//
+//        this.task = userTodoFarm.getTodo().getTask();
+//    }
 
     // 농장주
-    public UserTodoFarmResponseDto(UserTodoFarm userTodoFarm, User user) {
+    public UserTodoFarmResponseDto(UserTodoFarm userTodoFarm) {
         this.userTodoFarmId = userTodoFarm.getUserTodoFarmId();
         this.userId = userTodoFarm.getUser().getUserId();
         this.todoId = userTodoFarm.getTodo().getTodoId();

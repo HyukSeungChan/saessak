@@ -169,7 +169,7 @@ public class WorkController {
             List<WorkRecommendResponseDto> work = workService.workRecommend(address, agriculture, crops);
             ObjectMapper mapper = new ObjectMapper();
 
-            System.out.println("find work !!");
+            System.out.println("find work !! : " + work.get(0).getWorkId() + ", " + work.get(1).getWorkId());
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get work successfully", mapper.writeValueAsString(work)));
         } catch (Exception e) {
             System.out.println("not work !!");
