@@ -46,6 +46,10 @@ public class Video {
     // 작물명
     private String cropsName;
 
+    @Column(name = "thumbnail")
+    // 썸네일
+    private String thimbnail;
+
     @OneToMany(mappedBy = "video")
     // mapping
     private List<UserVideo> userVideos = new ArrayList<>();

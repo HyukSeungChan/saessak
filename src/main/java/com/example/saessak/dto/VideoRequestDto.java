@@ -27,6 +27,8 @@ public class VideoRequestDto {
 
     private String type;
 
+    private String thumbnail;
+
     private String crops;
 
     private String crops_name;
@@ -39,6 +41,7 @@ public class VideoRequestDto {
                 .link(link)
                 .type(type)
                 .crops(crops)
+                .thimbnail(thumbnail)
                 .cropsName(crops_name)
                 .build();
     }

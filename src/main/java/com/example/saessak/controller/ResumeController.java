@@ -1,6 +1,7 @@
 package com.example.saessak.controller;
 
 import com.example.saessak.dto.*;
+import com.example.saessak.entity.Resume;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.ResumeService;
 import com.example.saessak.service.WorkService;
@@ -21,9 +22,9 @@ public class ResumeController {
 
     // 이력서 생성
     @PostMapping("/resume")
-    public ResponseEntity<ResumeRequestDto> save(@RequestBody ResumeRequestDto resumeRequestDto){
-        resumeService.save(resumeRequestDto);
-        return ResponseEntity.ok(resumeRequestDto);
+    public ResponseEntity<Resume> save(@RequestBody ResumeRequestDto resumeRequestDto){
+        System.out.println(resumeService.save(resumeRequestDto).getResumeId());
+        return ResponseEntity.ok(resumeService.save(resumeRequestDto));
     }
 
     // 자신의 이력서 확인

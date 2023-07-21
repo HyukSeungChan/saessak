@@ -22,6 +22,8 @@ public class VideoResponseDto {
 
     private String type;
 
+    private String thumbnail;
+
     private String crops;
 
     private String cropsName;
@@ -38,5 +40,6 @@ public class VideoResponseDto {
         this.type = video.getType();
         this.crops = video.getCrops();
         this.cropsName = video.getCropsName();
+        this.thumbnail = video.getThimbnail();
     }
 }
