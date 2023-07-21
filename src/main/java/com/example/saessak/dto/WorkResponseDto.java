@@ -19,7 +19,6 @@ public class WorkResponseDto {
 
     private String title;
 
-    private String content;
 
     private String recruitmentStart;
 
@@ -65,7 +64,6 @@ public class WorkResponseDto {
         this.workId = work.getWorkId();
         this.farmId = work.getFarm().getFarmId();
         this.title = work.getTitle();
-        this.content = work.getContent();
         this.recruitmentStart = work.getRecruitmentStart();
         this.recruitmentEnd = work.getRecruitmentEnd();
         this.recruitmentPerson = work.getRecruitmentPerson();

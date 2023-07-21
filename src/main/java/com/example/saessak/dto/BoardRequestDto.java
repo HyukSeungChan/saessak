@@ -26,7 +26,7 @@ public class BoardRequestDto {
 
     private String uploadTime;
 
-    private String area;
+//    private String area;
 
     private String image;
 
@@ -45,19 +45,19 @@ public class BoardRequestDto {
         Farm farm = farmRepository.findByUserUserId(user.getUserId());
         String areaValue = "";
 
-        if (worker != null) {
-            areaValue = worker.getArea();
-        } else {
-            String[] str = farm.getAddress().split(" ");
-            areaValue = str[0] + " " + str[1];
-        }
+//        if (worker != null) {
+//            areaValue = worker.getArea();
+//        } else {
+//            String[] str = farm.getAddress().split(" ");
+//            areaValue = str[0] + " " + str[1];
+//        }
 
         return Board.builder()
 //                .boardId(boardId)
                 .title(title)
                 .content(content)
                 .uploadTime(uploadTime)
-                .area(areaValue)
+//                .area(areaValue)
                 .image(image)
                 .likes(likes)
                 .replies(replies)
