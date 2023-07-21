@@ -51,4 +51,22 @@ public class FarmController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found policy", null));
         }
     }
+
+
+
+    @GetMapping("/user/farm/id")
+    public ResponseEntity<ApiResponse> findByUserId(@RequestParam("userId") Long userId) {
+        System.out.println("농장 조회 입장!!");
+        try {
+            ResponseEntity.notFound();
+            FarmResponseDto farm = farmService.findByUserId(userId);
+            ObjectMapper mapper = new ObjectMapper();
+
+            System.out.println("find policy !!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get policy successfully", mapper.writeValueAsString(farm)));
+        } catch (Exception e) {
+            System.out.println("not policy !!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound", "cant found policy", null));
+        }
+    }
 }

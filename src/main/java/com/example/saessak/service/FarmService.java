@@ -34,4 +34,12 @@ public class FarmService {
         Farm entity = farmRepository.findById(farmId).orElseThrow(()->new IllegalArgumentException("해당 농장이 없습니다."));
         return new FarmResponseDto(entity);
     }
+
+    // 농장 조회
+    @Transactional(readOnly = true)
+    public FarmResponseDto findByUserId(Long userId) {
+        System.out.println("------ 농장 조회 ------");
+        Farm entity = farmRepository.findByUserUserId(userId);
+        return new FarmResponseDto(entity);
+    }
 }
