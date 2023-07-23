@@ -61,7 +61,7 @@ public class UserFarmController {
         try {
             ResponseEntity.notFound();
             List<UserFarmResponseDto> userTodoFarm = userFarmService.findAllByUserUserId(userId);
-
+    
             ObjectMapper mapper = new ObjectMapper();
 //            return ResponseEntity.ok(user);
             System.out.println("find user farm user !!");
