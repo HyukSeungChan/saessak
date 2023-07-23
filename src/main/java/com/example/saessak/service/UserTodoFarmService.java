@@ -3,14 +3,17 @@ package com.example.saessak.service;
 import com.example.saessak.dto.UserFarmResponseDto;
 import com.example.saessak.dto.UserTodoFarmRequestDto;
 import com.example.saessak.dto.UserTodoFarmResponseDto;
+import com.example.saessak.entity.User;
 import com.example.saessak.entity.UserFarm;
 import com.example.saessak.entity.UserTodoFarm;
 //import com.example.saessak.repository.TodoRepository;
+import com.example.saessak.repository.UserFarmRepository;
 import com.example.saessak.repository.UserTodoFarmRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,20 +23,33 @@ public class UserTodoFarmService {
 
     private final UserTodoFarmRepository userTodoFarmRepository;
 
+    private final UserFarmRepository userFarmRepository;
+
 //    private final TodoRepository todoRepository;
+
+//    // 유저-할일-농장 생성 (농장주)
+//    @Transactional
+//    public UserTodoFarm save(List<Long> userId, int todoId, int farmId) {
+//        System.out.println("------ 유저-할일-농장 생성 ------");
+//        UserTodoFarmRequestDto userTodoFarmRequestDto = new UserTodoFarmRequestDto();
+//        for (Long user : userId) {
+//            UserTodoFarm userTodoFarm = userTodoFarmRepository.save(userTodoFarmRequestDto.toEntity(user, todoId, farmId));
+//        }
+//        return new UserTodoFarm();
+//    }
 
     // 유저-할일-농장 생성 (농장주)
     @Transactional
-    public UserTodoFarm save(List<Long> userId, int todoId, int farmId) {
+    public UserTodoFarm save(int todoId, int farmId) {
         System.out.println("------ 유저-할일-농장 생성 ------");
-        if (!userTodoFarmRepository.findAllByTodoTodoId(todoId).isEmpty()) {
-            userTodoFarmRepository.deleteAllByTodoTodoId(todoId);
-        }
+        UserTodoFarm userTodoFarm = new UserTodoFarm();
+        List<UserFarm> userFarms = userFarmRepository.findAllByFarmFarmId(farmId);
         UserTodoFarmRequestDto userTodoFarmRequestDto = new UserTodoFarmRequestDto();
-        for (Long user : userId) {
-//            UserTodoFarm userTodoFarm = userTodoFarmRepository.save(userTodoFarmRequestDto.toEntity(user, todoId, farmId));
+        for (UserFarm user : userFarms) {
+            Long userId = user.getUser().getUserId();
+            userTodoFarm = userTodoFarmRepository.save(userTodoFarmRequestDto.toEntity(userId, todoId, farmId));
         }
-        return new UserTodoFarm();
+        return userTodoFarm;
     }
 
     // 할 일 조회(유저)

@@ -23,9 +23,9 @@ public class TodoService {
     public Todo save(TodoRequestDto todoRequestDto) {
         System.out.println("------ 할일 생성 ------");
         Todo todo = todoRequestDto.toEntity();
-        todoRepository.save(todo);
-        return todo;
+        return todoRepository.save(todo);
     }
+
 
 
 }

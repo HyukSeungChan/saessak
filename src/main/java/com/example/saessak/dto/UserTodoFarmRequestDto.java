@@ -22,9 +22,9 @@ public class UserTodoFarmRequestDto {
 
     private int farmId;
 
-    private String date;
-
-    private String task;
+//    private String date;
+//
+//    private String task;
 
     public UserTodoFarm toEntity(Long userId, int todoId, int farmId) {
         User user = User.builder().userId(userId).build();

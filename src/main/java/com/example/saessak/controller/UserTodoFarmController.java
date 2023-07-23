@@ -20,10 +20,16 @@ public class UserTodoFarmController {
 
     private final UserTodoFarmService userTodoFarmService;
 
+//    // 유저-할일-농장 생성 (농장주)
+//    @PostMapping("/user/todo/farm")
+//    public ResponseEntity<UserTodoFarm> save(@RequestParam("userId") List<Long> userId, @RequestParam("todoId") int todoId, @RequestParam("farmId") int farmId) {
+//        return ResponseEntity.ok(userTodoFarmService.save(userId, todoId, farmId));
+//    }
+
     // 유저-할일-농장 생성 (농장주)
     @PostMapping("/user/todo/farm")
-    public ResponseEntity<UserTodoFarm> save(@RequestParam("userId") List<Long> userId, @RequestParam("todoId") int todoId, @RequestParam("farmId") int farmId) {
-        return ResponseEntity.ok(userTodoFarmService.save(userId, todoId, farmId));
+    public ResponseEntity<UserTodoFarm> save(@RequestParam("todoId") int todoId, @RequestParam("farmId") int farmId) {
+        return ResponseEntity.ok(userTodoFarmService.save(todoId, farmId));
     }
 
     // 할 일 조회(유저) 유저id 농장id 날짜 -> 메인
