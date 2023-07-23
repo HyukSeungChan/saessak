@@ -41,4 +41,22 @@ public class PolicySmartController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get reply", null));
         }
     }
+
+    // 스마트 농산사업 리스트 조회
+    @GetMapping("/policy/smart/detail")
+    public ResponseEntity<ApiResponse> findById(@RequestParam("policySmartId") int policySmartId) {
+        System.out.println("해당 글의 댓글 리스트 조회 !!");
+        try {
+            ResponseEntity.notFound();
+            PolicySmartResponseDTO policySmart = policySmartService.findById(policySmartId);
+
+            ObjectMapper mapper = new ObjectMapper();
+//            return ResponseEntity.ok(user);
+            System.out.println("find reply !!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get reply successfully", mapper.writeValueAsString(policySmart)));
+        } catch (Exception e) {
+            System.out.println("not reply !!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found get reply", null));
+        }
+    }
 }

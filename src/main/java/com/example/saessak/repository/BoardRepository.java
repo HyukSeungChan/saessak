@@ -11,10 +11,10 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     // 농촌 이야기 게시글 리스트 조회
-    List<Board> findAllByAgricultureIsNull();
+//    List<Board> findAllByAgricultureSizeEqualsZero();
 
     // 도와줘요 게시글 리스트 조회
-    List<Board> findAllByAgricultureIsNotNull();
+//    List<Board> findAllByAgricultureSizeGreaterThanZero();
 
     // 해당 게시글 조회
     Board findByBoardId(int boardId);

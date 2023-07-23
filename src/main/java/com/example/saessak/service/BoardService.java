@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,16 +49,31 @@ public class BoardService {
     @Transactional(readOnly = true)
     public List<BoardResponseDto> findAllByAgricultureIsNull() {
         System.out.println("------ 농촌 이야기 게시글 리스트 조회 ------");
-        List<Board> entity = boardRepository.findAllByAgricultureIsNull();
-        return entity.stream().map(BoardResponseDto::new).collect(Collectors.toList());
+        List<Board> entity = boardRepository.findAll();
+        List<Board> list = new ArrayList<>();
+        for (Board board : entity) {
+            if (board.getAgriculture().length() == 0) {
+                System.out.println("size"+ list.size());
+                list.add(board);
+            }else{
+                System.out.println("length" + board.getAgriculture().length());
+            }
+        }
+        return list.stream().map(BoardResponseDto::new).collect(Collectors.toList());
     }
 
     // 도와줘요 게시글 리스트 조회
     @Transactional(readOnly = true)
     public List<BoardResponseDto> findAllByAgricultureIsNotNull() {
-        System.out.println("------ 농촌 이야기 게시글 리스트 조회 ------");
-        List<Board> entity = boardRepository.findAllByAgricultureIsNotNull();
-        return entity.stream().map(BoardResponseDto::new).collect(Collectors.toList());
+        System.out.println("------ 도와줘요 이야기 게시글 리스트 조회 ------");
+        List<Board> entity = boardRepository.findAll();
+        List<Board> list = new ArrayList<>();
+        for (Board board : entity) {
+            if (board.getAgriculture().length() != 0) {
+                list.add(board);
+            }
+        }
+        return list.stream().map(BoardResponseDto::new).collect(Collectors.toList());
     }
 
     // 해당 글 조회
@@ -103,13 +119,23 @@ public class BoardService {
     public List<BoardResponseDto> findAllByAgricultureIsNotNullAndCropsContaining(String crops) {
         System.out.println("------ 실시간 인기글 ------");
         List<Board> entity;
+        List<Board> board = new ArrayList<>();
         if(crops.equals("전체")){
-            entity = boardRepository.findAllByAgricultureIsNotNull();
+            entity = boardRepository.findAll();
+            for (Board boards : entity) {
+                if (boards.getAgriculture().length() != 0) {
+                    board.add(boards);
+                }
+            }
         }else{
-            entity = boardRepository.findAllByAgricultureIsNotNullAndCropsContaining(crops);
+            entity = boardRepository.findAll();
+            for (Board boards : entity) {
+                if (boards.getAgriculture().length() != 0 && boards.getAgriculture().equals(crops)) {
+                    board.add(boards);
+                }
+            }
         }
-
-        return entity.stream().map(BoardResponseDto::new).collect(Collectors.toList());
+        return board.stream().map(BoardResponseDto::new).collect(Collectors.toList());
     }
 
     // 내가 쓴 글 확인

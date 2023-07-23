@@ -1,10 +1,7 @@
 package com.example.saessak.controller;
 
 
-import com.example.saessak.dto.UserFarmResponseDto;
-import com.example.saessak.dto.UserWorkRequestDto;
-import com.example.saessak.dto.UserWorkResponseDto;
-import com.example.saessak.dto.WorkResumeResponseDto;
+import com.example.saessak.dto.*;
 import com.example.saessak.payload.ApiResponse;
 import com.example.saessak.service.UserFarmService;
 import com.example.saessak.service.UserWorkService;
@@ -43,22 +40,7 @@ public class UserFarmController {
     }
 
     // 유저입장에서 자신이 속한 농장이 있는지 조회
-    @GetMapping("/user/farm/group")
-    public ResponseEntity<ApiResponse> findAllByUserUserId(@RequestParam("userId") Long userId){
-        System.out.println("유저-농장 유저 조회 !!");
-        try {
-            ResponseEntity.notFound();
-            List<UserFarmResponseDto> userFarm = userFarmService.findAllByUserUserId(userId);
 
-            ObjectMapper mapper = new ObjectMapper();
-//            return ResponseEntity.ok(user);
-            System.out.println("find user farm user !!");
-            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user farm user successfully", mapper.writeValueAsString(userFarm)));
-        } catch (Exception e) {
-            System.out.println("not work resume worker !!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user farm user", null));
-        }
-    }
 
     // 농장 나가기 중간에 (노동자)
     @DeleteMapping("/user/farm/exit")
@@ -70,6 +52,24 @@ public class UserFarmController {
     @DeleteMapping("/user/farm/expiration")
     public ResponseEntity<Boolean> deleteUserFarmByUserUserIdAndDateEnd(@RequestParam("userId") Long userId, @RequestParam("dateEnd") String dateEnd) {
         return ResponseEntity.ok(userFarmService.deleteUserFarmByUserUserIdAndDateEnd(userId, dateEnd));
+    }
+
+    // 노동자 농장 조회
+    @GetMapping("/user/farm/group")
+    public ResponseEntity<ApiResponse> findAllByUserUserId(@RequestParam("userId") Long userId){
+        System.out.println("유저-농장 유저 조회 !!");
+        try {
+            ResponseEntity.notFound();
+            List<UserFarmResponseDto> userTodoFarm = userFarmService.findAllByUserUserId(userId);
+
+            ObjectMapper mapper = new ObjectMapper();
+//            return ResponseEntity.ok(user);
+            System.out.println("find user farm user !!");
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Created","get user farm user successfully", mapper.writeValueAsString(userTodoFarm)));
+        } catch (Exception e) {
+            System.out.println("not work resume worker !!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("NotFound","cant found user farm user", null));
+        }
     }
 
 }

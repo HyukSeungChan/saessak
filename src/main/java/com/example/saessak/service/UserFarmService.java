@@ -2,6 +2,7 @@ package com.example.saessak.service;
 
 import com.example.saessak.dto.*;
 import com.example.saessak.entity.UserFarm;
+import com.example.saessak.entity.UserTodoFarm;
 import com.example.saessak.repository.UserFarmRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,14 +26,7 @@ public class UserFarmService {
         return entity.stream().map(userFarm -> new UserFarmResponseDto(userFarm, userFarm.getUser(), userFarm.getFarm())).collect(Collectors.toList());
     }
 
-    // 유저입장에서 자신이 속한 농장이 있는지 조회
-    @Transactional(readOnly = true)
-    public List<UserFarmResponseDto> findAllByUserUserId(Long userId) {
-        System.out.println("------ 유저입장에서 자신이 속한 농장이 있는지 조회 ------");
-        List<UserFarm> entity = userFarmRepository.findAllByUserUserId(userId);
-        return entity.stream().map(userFarm -> new UserFarmResponseDto(userFarm, userFarm.getUser(), userFarm.getFarm())).collect(Collectors.toList());
 
-    }
 
     // 농장 나가기 중간에 (노동자)
     @Transactional
@@ -57,6 +51,15 @@ public class UserFarmService {
         } else {
             return false;
         }
+    }
+
+    // 유저입장에서 자신이 속한 농장이 있는지 조회
+    @Transactional(readOnly = true)
+    public List<UserFarmResponseDto> findAllByUserUserId(Long userId) {
+        System.out.println("------ 유저입장에서 자신이 속한 농장이 있는지 조회 ------");
+        List<UserFarm> entity = userFarmRepository.findAllByUserUserId(userId);
+        return entity.stream().map(userFarm -> new UserFarmResponseDto(userFarm, userFarm.getUser(), userFarm.getFarm())).collect(Collectors.toList());
+
     }
 
 }

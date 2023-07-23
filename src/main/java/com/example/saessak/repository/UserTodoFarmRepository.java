@@ -25,4 +25,6 @@ public interface UserTodoFarmRepository extends JpaRepository<UserTodoFarm, Inte
     // 할 일 삭제(농장주) 1개
     void deleteByTodoTodoId(int todoId);
 
+    List<UserTodoFarm> findAllByUserUserId(Long userId);
+
 }
