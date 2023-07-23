@@ -26,7 +26,7 @@ public class BoardRequestDto {
 
     private String uploadTime;
 
-    private String area;
+//    private String area;
 
     private String image;
 
@@ -44,7 +44,6 @@ public class BoardRequestDto {
 //        Worker worker = workerRepository.findByUserUserId(user.getUserId());
 //        Farm farm = farmRepository.findByUserUserId(user.getUserId()).get(0);
         String areaValue = "";
-//
 //        if (worker != null) {
 //            areaValue = worker.getArea();
 //        } else {
@@ -57,7 +56,7 @@ public class BoardRequestDto {
                 .title(title)
                 .content(content)
                 .uploadTime(uploadTime)
-                .area(areaValue)
+//                .area(areaValue)
                 .image(image)
                 .likes(likes)
                 .replies(replies)

@@ -17,7 +17,6 @@ public class WorkRequestDto {
     private int workId;
     private int farmId;
     private String title;
-    private String content;
     private String recruitmentStart;
     private String recruitmentEnd;
     private int recruitmentPerson;
@@ -47,7 +46,6 @@ public class WorkRequestDto {
                 .workId(workId)
                 .farm(farm)
                 .title(title)
-                .content(content)
                 .recruitmentStart(recruitmentStart)
                 .recruitmentEnd(recruitmentEnd)
                 .recruitmentPerson(recruitmentPerson)
