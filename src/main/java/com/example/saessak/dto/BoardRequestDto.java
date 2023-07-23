@@ -41,16 +41,16 @@ public class BoardRequestDto {
 
     public Board toEntity(WorkerRepository workerRepository, FarmRepository farmRepository) {
         User user = User.builder().userId(userId).build();
-        Worker worker = workerRepository.findByUserUserId(user.getUserId());
-        Farm farm = farmRepository.findByUserUserId(user.getUserId());
+//        Worker worker = workerRepository.findByUserUserId(user.getUserId());
+//        Farm farm = farmRepository.findByUserUserId(user.getUserId()).get(0);
         String areaValue = "";
-
-        if (worker != null) {
-            areaValue = worker.getArea();
-        } else {
-            String[] str = farm.getAddress().split(" ");
-            areaValue = str[0] + " " + str[1];
-        }
+//
+//        if (worker != null) {
+//            areaValue = worker.getArea();
+//        } else {
+//            String[] str = farm.getAddress().split(" ");
+//            areaValue = str[0] + " " + str[1];
+//        }
 
         return Board.builder()
 //                .boardId(boardId)

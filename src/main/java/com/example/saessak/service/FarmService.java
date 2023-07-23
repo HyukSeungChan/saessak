@@ -39,7 +39,7 @@ public class FarmService {
     @Transactional(readOnly = true)
     public FarmResponseDto findByUserId(Long userId) {
         System.out.println("------ 농장 조회 ------");
-        Farm entity = farmRepository.findByUserUserId(userId);
+        Farm entity = farmRepository.findByUserUserId(userId).get(0);
         return new FarmResponseDto(entity);
     }
 }

@@ -25,8 +25,8 @@ public class ReplyRequestDto {
 
         User user = User.builder().userId(userId).build();
         Board board = Board.builder().boardId(boardId).build();
-        Worker worker = workerRepository.findByUserUserId(user.getUserId());
-        Farm farm = farmRepository.findByUserUserId(user.getUserId());
+//        Worker worker = workerRepository.findByUserUserId(user.getUserId());
+//        Farm farm = farmRepository.findByUserUserId(user.getUserId()).get(0);
 
 
         // 지역을 보내야하나?? 고민해보기.
